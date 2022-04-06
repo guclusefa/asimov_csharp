@@ -47,19 +47,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(4, 9);
+            this.label1.Location = new System.Drawing.Point(5, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(198, 45);
+            this.label1.Size = new System.Drawing.Size(244, 54);
             this.label1.TabIndex = 0;
             this.label1.Text = "Les Matières";
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(12, 57);
+            this.tabControl1.Location = new System.Drawing.Point(14, 76);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(860, 464);
+            this.tabControl1.Size = new System.Drawing.Size(983, 619);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -69,19 +70,21 @@
             this.tabPage1.Controls.Add(this.btn_supprimerMatiere);
             this.tabPage1.Controls.Add(this.btn_modifierMatiere);
             this.tabPage1.Controls.Add(this.dg_lesMatieres);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(852, 436);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage1.Size = new System.Drawing.Size(975, 586);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Liste des matières";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btn_ajouter
             // 
-            this.btn_ajouter.Location = new System.Drawing.Point(6, 401);
+            this.btn_ajouter.Location = new System.Drawing.Point(7, 535);
+            this.btn_ajouter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_ajouter.Name = "btn_ajouter";
-            this.btn_ajouter.Size = new System.Drawing.Size(75, 29);
+            this.btn_ajouter.Size = new System.Drawing.Size(86, 39);
             this.btn_ajouter.TabIndex = 7;
             this.btn_ajouter.Text = "Ajouter";
             this.btn_ajouter.UseVisualStyleBackColor = true;
@@ -89,18 +92,21 @@
             // 
             // btn_supprimerMatiere
             // 
-            this.btn_supprimerMatiere.Location = new System.Drawing.Point(168, 401);
+            this.btn_supprimerMatiere.Location = new System.Drawing.Point(192, 535);
+            this.btn_supprimerMatiere.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_supprimerMatiere.Name = "btn_supprimerMatiere";
-            this.btn_supprimerMatiere.Size = new System.Drawing.Size(75, 29);
+            this.btn_supprimerMatiere.Size = new System.Drawing.Size(86, 39);
             this.btn_supprimerMatiere.TabIndex = 6;
             this.btn_supprimerMatiere.Text = "Supprimer";
             this.btn_supprimerMatiere.UseVisualStyleBackColor = true;
+            this.btn_supprimerMatiere.Click += new System.EventHandler(this.btn_supprimerMatiere_Click);
             // 
             // btn_modifierMatiere
             // 
-            this.btn_modifierMatiere.Location = new System.Drawing.Point(87, 401);
+            this.btn_modifierMatiere.Location = new System.Drawing.Point(99, 535);
+            this.btn_modifierMatiere.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_modifierMatiere.Name = "btn_modifierMatiere";
-            this.btn_modifierMatiere.Size = new System.Drawing.Size(75, 29);
+            this.btn_modifierMatiere.Size = new System.Drawing.Size(86, 39);
             this.btn_modifierMatiere.TabIndex = 5;
             this.btn_modifierMatiere.Text = "Modifier";
             this.btn_modifierMatiere.UseVisualStyleBackColor = true;
@@ -117,11 +123,13 @@
             this.dg_lesMatieres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.libelle});
-            this.dg_lesMatieres.Location = new System.Drawing.Point(6, 6);
+            this.dg_lesMatieres.Location = new System.Drawing.Point(7, 8);
+            this.dg_lesMatieres.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dg_lesMatieres.Name = "dg_lesMatieres";
             this.dg_lesMatieres.ReadOnly = true;
+            this.dg_lesMatieres.RowHeadersWidth = 51;
             this.dg_lesMatieres.RowTemplate.Height = 25;
-            this.dg_lesMatieres.Size = new System.Drawing.Size(840, 389);
+            this.dg_lesMatieres.Size = new System.Drawing.Size(960, 519);
             this.dg_lesMatieres.TabIndex = 1;
             // 
             // id
@@ -140,9 +148,10 @@
             // 
             // btn_quitter
             // 
-            this.btn_quitter.Location = new System.Drawing.Point(796, 527);
+            this.btn_quitter.Location = new System.Drawing.Point(910, 703);
+            this.btn_quitter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_quitter.Name = "btn_quitter";
-            this.btn_quitter.Size = new System.Drawing.Size(75, 29);
+            this.btn_quitter.Size = new System.Drawing.Size(86, 39);
             this.btn_quitter.TabIndex = 4;
             this.btn_quitter.Text = "Quitter";
             this.btn_quitter.UseVisualStyleBackColor = true;
@@ -150,13 +159,14 @@
             // 
             // LesMatieres
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(1010, 748);
             this.Controls.Add(this.btn_quitter);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "LesMatieres";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

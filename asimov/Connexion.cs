@@ -6,6 +6,9 @@ namespace asimov
 {
     public partial class Connexion : Form
     {
+        // importation des methodes
+        Methods methods = new Methods();
+
         public Connexion()
         {
             InitializeComponent();
@@ -24,9 +27,6 @@ namespace asimov
         // on envoie la requete de connexion
         private void btn_connexion_Click(object sender, EventArgs e)
         {
-            // importation des methods
-            Methods methods = new Methods();
-
             // requete post
             string url = "/connexion";
             string json = jsonConnexion(tb_identification.Text, tb_motdepasse.Text);
@@ -38,14 +38,15 @@ namespace asimov
             if (data["user_info"] != null)
             {
                 // msg valid
-                MessageBox.Show(data["valid"][0].ToString());
+                MessageBox.Show(data["valid"][0].ToString(), "Succès");
+
                 // ouvrir index
                 this.Hide();
                 Index index = new Index();
                 index.Show();
             } else {
                 // msg erreur
-                MessageBox.Show(data["erreur"][0].ToString());
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
             }
         }
     }

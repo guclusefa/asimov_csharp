@@ -12,10 +12,14 @@ namespace asimov
 {
     public partial class Index : Form
     {
+        // importation des methods
+        Methods methods = new Methods();
+
         public Index()
         {
             InitializeComponent();
-            Methods methods = new Methods();
+
+            // recuperer data user
             string url = "/";
             var data = methods.getRequest(url);
             label_nomUser.Text = data["user_info"]["user_prenom"].ToString() + " " + data["user_info"]["user_nom"].ToString();
@@ -23,18 +27,15 @@ namespace asimov
 
         private void btn_deconnexion_Click(object sender, EventArgs e)
         {
-            // importation des methods
-            Methods methods = new Methods();
-
-            // requete get
+            // requete deconnexion
             string url = "/deconnexion";
             var data = methods.getRequest(url);
+
+            // si valid
             if (data["valid"] != null)
             {
-                // msg valid
                 MessageBox.Show(data["valid"][0].ToString());
             } else {
-                // msg erreur
                 MessageBox.Show(data["erreur"][0].ToString());
             }
             
