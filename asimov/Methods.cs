@@ -11,11 +11,13 @@ namespace asimov
 {
     internal class Methods
     {
+        public static string host = "http://localhost:8080";
         public static CookieContainer cookieContainer = new CookieContainer();
-            
+        
         public JObject postRequest(string url, string json)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            string api = host + url;
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "POST";
             httpWebRequest.CookieContainer = cookieContainer;
@@ -39,7 +41,8 @@ namespace asimov
         // make get request
         public JObject getRequest(string url)
         {
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
+            string api = host + url;
+            var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
             httpWebRequest.ContentType = "application/json";
             httpWebRequest.Method = "GET";
             httpWebRequest.CookieContainer = cookieContainer;

@@ -22,13 +22,13 @@ namespace asimov
         }
 
         // on envoie la requete de connexion
-        private void button1_Click(object sender, EventArgs e)
+        private void btn_connexion_Click(object sender, EventArgs e)
         {
             // importation des methods
             Methods methods = new Methods();
 
             // requete post
-            string url = "http://localhost:8080/connexion";
+            string url = "/connexion";
             string json = jsonConnexion(tb_identification.Text, tb_motdepasse.Text);
             
             // on recupere data
@@ -37,13 +37,15 @@ namespace asimov
             // si connecte
             if (data["user_info"] != null)
             {
-                MessageBox.Show(data["valid"].ToString());
-                // open index
+                // msg valid
+                MessageBox.Show(data["valid"][0].ToString());
+                // ouvrir index
                 this.Hide();
                 Index index = new Index();
                 index.Show();
             } else {
-               MessageBox.Show(data["erreur"].ToString());
+                // msg erreur
+                MessageBox.Show(data["erreur"][0].ToString());
             }
         }
     }
