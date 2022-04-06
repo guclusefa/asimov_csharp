@@ -18,7 +18,7 @@ namespace asimov
         }
 
         private void button7_Click(object sender, EventArgs e)
-        {
+        {            
             // close this and open connexion
             this.Hide();
             Connexion connexion = new Connexion();
