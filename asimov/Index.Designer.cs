@@ -34,7 +34,7 @@
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.btn_matieres = new System.Windows.Forms.Button();
             this.btn_deconnexion = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label_nomUser = new System.Windows.Forms.Label();
@@ -105,16 +105,17 @@
             this.button5.Text = "Les élèves";
             this.button5.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // btn_matieres
             // 
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button6.Location = new System.Drawing.Point(39, 314);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(213, 24);
-            this.button6.TabIndex = 9;
-            this.button6.Text = "Les matieres";
-            this.button6.UseVisualStyleBackColor = true;
+            this.btn_matieres.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_matieres.Location = new System.Drawing.Point(39, 314);
+            this.btn_matieres.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_matieres.Name = "btn_matieres";
+            this.btn_matieres.Size = new System.Drawing.Size(213, 24);
+            this.btn_matieres.TabIndex = 9;
+            this.btn_matieres.Text = "Les matieres";
+            this.btn_matieres.UseVisualStyleBackColor = true;
+            this.btn_matieres.Click += new System.EventHandler(this.btn_matieres_Click);
             // 
             // btn_deconnexion
             // 
@@ -156,7 +157,7 @@
             this.Controls.Add(this.label_nomUser);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_deconnexion);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.btn_matieres);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
@@ -182,7 +183,7 @@
         private Button button3;
         private Button button4;
         private Button button5;
-        private Button button6;
+        private Button btn_matieres;
         private Button btn_deconnexion;
         private Label label2;
         private Label label_nomUser;

@@ -43,5 +43,13 @@ namespace asimov
             Connexion connexion = new Connexion();
             connexion.Show();
         }
+
+        private void btn_matieres_Click(object sender, EventArgs e)
+        {
+            // hide this and open lesMatieres
+            this.Hide();
+            LesMatieres lesMatieres = new LesMatieres();
+            lesMatieres.Show();
+        }
     }
 }
