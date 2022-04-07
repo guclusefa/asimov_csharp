@@ -133,6 +133,9 @@ namespace asimov
             }
         }
 
+
+        // CRUD PAR TYPE --------------------------------------------------
+
         // remplir datagridview
         public void fillDataGrid(DataGridView dgv, string url, string type)
         {
