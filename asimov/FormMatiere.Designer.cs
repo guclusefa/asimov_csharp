@@ -90,7 +90,7 @@
             this.MaximizeBox = false;
             this.Name = "FormMatiere";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Ajouter une matière";
+            this.Text = "Ajouter matière";
             this.ResumeLayout(false);
             this.PerformLayout();
 

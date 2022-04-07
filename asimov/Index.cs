@@ -20,11 +20,19 @@ namespace asimov
             InitializeComponent();
 
             // recuperer data user
-            string url = "/";
-            var data = methods.getRequest(url);
+            var data = methods.getRequest("/");
             label_nomUser.Text = data["user_info"]["user_prenom"].ToString() + " " + data["user_info"]["user_nom"].ToString();
         }
 
+        // les matieres
+        private void btn_matieres_Click(object sender, EventArgs e)
+        {
+            // ouvrir matieres
+            LesMatieres lesMatieres = new LesMatieres();
+            methods.openForm("/matieres/liste", this, lesMatieres);
+        }
+
+        // deconnexion
         private void btn_deconnexion_Click(object sender, EventArgs e)
         {
             // requete deconnexion
@@ -35,34 +43,16 @@ namespace asimov
             if (data["valid"] != null)
             {
                 MessageBox.Show(data["valid"][0].ToString(), "Succès");
-            } else {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
-            }
-            
-            // revenir page de connexion
-            this.Hide();
-            Connexion connexion = new Connexion();
-            connexion.Show();
-        }
-
-        private void btn_matieres_Click(object sender, EventArgs e)
-        {
-            // requete matieres
-            string url = "/matieres/liste";
-            var data = methods.getRequest(url);
-
-            // si valid
-            if (string.Equals(data["erreur"].ToString(), "[]"))
-            {
-                // hide this and open lesMatieres
-                this.Hide();
-                LesMatieres lesMatieres = new LesMatieres();
-                lesMatieres.Show();
             }
             else
             {
                 MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
             }
+
+            // revenir page de connexion
+            this.Hide();
+            Connexion connexion = new Connexion();
+            connexion.Show();
         }
     }
 }

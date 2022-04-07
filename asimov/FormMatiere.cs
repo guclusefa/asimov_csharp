@@ -15,17 +15,31 @@ namespace asimov
         // importation des methodes
         Methods methods = new Methods();
 
-        public FormMatiere()
+        // les params
+        public static int modifierForm;
+        public static string idForm;
+
+        public FormMatiere(int modifier, string id)
         {
             InitializeComponent();
 
+            // initialisation des params
+            modifierForm = modifier;
+            idForm = id;
+
             // si modifier
-            if (LesMatieres.modifier == 1)
+            if (modifier == 1)
             {
+                // les labels
                 this.Text = "Modifier matière";
                 label1.Text = "Modifier";
                 btn_valider.Text = "Modifier";
-                tb_libelle.Text = LesMatieres.matiere_libelle;
+
+                // les values
+                var data = methods.getRequest("/matieres/modifier/"+id);
+
+                // attribuer values
+                tb_libelle.Text = data["uneMatiere"]["matiere_libelle"].ToString();
             }
         }
 
@@ -37,7 +51,7 @@ namespace asimov
                 "}";
             return json;
         }
-
+        
         // format json pour modifier
         private string jsonModifier(string libelle, string id)
         {
@@ -51,33 +65,22 @@ namespace asimov
         // valider
         private void btn_valider_Click(object sender, EventArgs e)
         {
-            var url = "";
-            var json = "";
-
+            string url;
+            string json;
+            
             // si pour ajouter sinon pour ajouter
-            if (LesMatieres.modifier == 0)
+            if (modifierForm == 0)
             {
                 url = "/matieres/ajouter";
                 json = jsonAjouter(tb_libelle.Text);
             } else
             {
-                url = "/matieres/modifier/" + LesMatieres.matiere_id;
-                json = jsonModifier(tb_libelle.Text, LesMatieres.matiere_id);
+                url = "/matieres/modifier/" + idForm;
+                json = jsonModifier(tb_libelle.Text, idForm);
             }
-
-            // on recupere data
-            var data = methods.postRequest(url, json);
-
-            // si pas d'erreur
-            if (string.Equals(data["erreur"].ToString(), "[]"))
-            {
-                MessageBox.Show(data["valid"][0].ToString(), "Succès");
-                this.Close();
-            }
-            else
-            {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
-            }
+            
+            //requete
+            methods.validate(url, json, this);
         }
     }
 }
