@@ -34,9 +34,9 @@ namespace asimov
             // si valid
             if (data["valid"] != null)
             {
-                MessageBox.Show(data["valid"][0].ToString());
+                MessageBox.Show(data["valid"][0].ToString(), "Succès");
             } else {
-                MessageBox.Show(data["erreur"][0].ToString());
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
             }
             
             // revenir page de connexion
@@ -47,10 +47,22 @@ namespace asimov
 
         private void btn_matieres_Click(object sender, EventArgs e)
         {
-            // hide this and open lesMatieres
-            this.Hide();
-            LesMatieres lesMatieres = new LesMatieres();
-            lesMatieres.Show();
+            // requete matieres
+            string url = "/matieres/liste";
+            var data = methods.getRequest(url);
+
+            // si valid
+            if (string.Equals(data["erreur"].ToString(), "[]"))
+            {
+                // hide this and open lesMatieres
+                this.Hide();
+                LesMatieres lesMatieres = new LesMatieres();
+                lesMatieres.Show();
+            }
+            else
+            {
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+            }
         }
     }
 }

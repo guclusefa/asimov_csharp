@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tb_chercher = new System.Windows.Forms.TextBox();
+            this.btn_detail = new System.Windows.Forms.Button();
             this.btn_ajouter = new System.Windows.Forms.Button();
             this.btn_supprimerMatiere = new System.Windows.Forms.Button();
             this.btn_modifierMatiere = new System.Windows.Forms.Button();
@@ -60,12 +62,14 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(983, 619);
+            this.tabControl1.Size = new System.Drawing.Size(983, 624);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
             // 
             this.tabPage1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.tabPage1.Controls.Add(this.tb_chercher);
+            this.tabPage1.Controls.Add(this.btn_detail);
             this.tabPage1.Controls.Add(this.btn_ajouter);
             this.tabPage1.Controls.Add(this.btn_supprimerMatiere);
             this.tabPage1.Controls.Add(this.btn_modifierMatiere);
@@ -74,25 +78,46 @@
             this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tabPage1.Size = new System.Drawing.Size(975, 586);
+            this.tabPage1.Size = new System.Drawing.Size(975, 591);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Liste des matières";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tb_chercher
+            // 
+            this.tb_chercher.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tb_chercher.Location = new System.Drawing.Point(451, 539);
+            this.tb_chercher.Name = "tb_chercher";
+            this.tb_chercher.PlaceholderText = "Rechercher...";
+            this.tb_chercher.Size = new System.Drawing.Size(516, 39);
+            this.tb_chercher.TabIndex = 7;
+            this.tb_chercher.TextChanged += new System.EventHandler(this.tb_chercher_TextChanged);
+            // 
+            // btn_detail
+            // 
+            this.btn_detail.Location = new System.Drawing.Point(7, 539);
+            this.btn_detail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_detail.Name = "btn_detail";
+            this.btn_detail.Size = new System.Drawing.Size(86, 39);
+            this.btn_detail.TabIndex = 3;
+            this.btn_detail.Text = "Détail";
+            this.btn_detail.UseVisualStyleBackColor = true;
+            this.btn_detail.Click += new System.EventHandler(this.btn_detail_Click);
+            // 
             // btn_ajouter
             // 
-            this.btn_ajouter.Location = new System.Drawing.Point(7, 535);
+            this.btn_ajouter.Location = new System.Drawing.Point(99, 539);
             this.btn_ajouter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_ajouter.Name = "btn_ajouter";
             this.btn_ajouter.Size = new System.Drawing.Size(86, 39);
-            this.btn_ajouter.TabIndex = 7;
+            this.btn_ajouter.TabIndex = 4;
             this.btn_ajouter.Text = "Ajouter";
             this.btn_ajouter.UseVisualStyleBackColor = true;
             this.btn_ajouter.Click += new System.EventHandler(this.btn_ajouter_Click);
             // 
             // btn_supprimerMatiere
             // 
-            this.btn_supprimerMatiere.Location = new System.Drawing.Point(192, 535);
+            this.btn_supprimerMatiere.Location = new System.Drawing.Point(283, 539);
             this.btn_supprimerMatiere.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_supprimerMatiere.Name = "btn_supprimerMatiere";
             this.btn_supprimerMatiere.Size = new System.Drawing.Size(86, 39);
@@ -103,7 +128,7 @@
             // 
             // btn_modifierMatiere
             // 
-            this.btn_modifierMatiere.Location = new System.Drawing.Point(99, 535);
+            this.btn_modifierMatiere.Location = new System.Drawing.Point(191, 539);
             this.btn_modifierMatiere.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_modifierMatiere.Name = "btn_modifierMatiere";
             this.btn_modifierMatiere.Size = new System.Drawing.Size(86, 39);
@@ -130,7 +155,7 @@
             this.dg_lesMatieres.RowHeadersWidth = 51;
             this.dg_lesMatieres.RowTemplate.Height = 25;
             this.dg_lesMatieres.Size = new System.Drawing.Size(960, 519);
-            this.dg_lesMatieres.TabIndex = 1;
+            this.dg_lesMatieres.TabIndex = 2;
             // 
             // id
             // 
@@ -152,7 +177,7 @@
             this.btn_quitter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_quitter.Name = "btn_quitter";
             this.btn_quitter.Size = new System.Drawing.Size(86, 39);
-            this.btn_quitter.TabIndex = 4;
+            this.btn_quitter.TabIndex = 8;
             this.btn_quitter.Text = "Quitter";
             this.btn_quitter.UseVisualStyleBackColor = true;
             this.btn_quitter.Click += new System.EventHandler(this.btn_quitter_Click);
@@ -173,6 +198,7 @@
             this.Text = "LesMatieres";
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dg_lesMatieres)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -192,5 +218,7 @@
         private Button btn_modifierMatiere;
         private Button btn_supprimerMatiere;
         private Button btn_ajouter;
+        private Button btn_detail;
+        private TextBox tb_chercher;
     }
 }
