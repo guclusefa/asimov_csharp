@@ -28,8 +28,8 @@ namespace asimov
         private void btn_matieres_Click(object sender, EventArgs e)
         {
             // ouvrir matieres
-            LesMatieres lesMatieres = new LesMatieres();
-            methods.openForm("/matieres/liste", this, lesMatieres);
+            Liste form = new Liste("Les matières", "/matieres", "MAT");
+            methods.openForm("/matieres/liste", this, form);
         }
 
         // deconnexion

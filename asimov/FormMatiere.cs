@@ -16,16 +16,16 @@ namespace asimov
         Methods methods = new Methods();
 
         // les params
-        public static int modifierForm;
-        public static string idForm;
+        public static int modifier;
+        public static string id;
 
-        public FormMatiere(int modifier, string id)
+        public FormMatiere(int modifierForm, string idForm)
         {
             InitializeComponent();
 
             // initialisation des params
-            modifierForm = modifier;
-            idForm = id;
+            modifier = modifierForm;
+            id = idForm;
 
             // si modifier
             if (modifier == 1)
@@ -69,14 +69,14 @@ namespace asimov
             string json;
             
             // si pour ajouter sinon pour ajouter
-            if (modifierForm == 0)
+            if (modifier == 0)
             {
                 url = "/matieres/ajouter";
                 json = jsonAjouter(tb_libelle.Text);
             } else
             {
-                url = "/matieres/modifier/" + idForm;
-                json = jsonModifier(tb_libelle.Text, idForm);
+                url = "/matieres/modifier/" + id;
+                json = jsonModifier(tb_libelle.Text, id);
             }
             
             //requete

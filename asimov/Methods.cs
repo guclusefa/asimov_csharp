@@ -149,9 +149,16 @@ namespace asimov
                 dgv.Rows.Clear();
                 dgv.Refresh();
 
+                // delete all collums
+                dgv.Columns.Clear();
+
                 // si matiere
                 if (type == "MAT")
                 {
+                    // ajout des colonnes
+                    dgv.Columns.Add("id", "#");
+                    dgv.Columns.Add("libelle", "Libellé");
+
                     // affichage des data dans le tableau
                     foreach (var item in data["lesMatieres"])
                     {
