@@ -80,6 +80,7 @@ namespace asimov
                 }
                 actionForm = "Ajouter";
             }
+            
             // les labels
             this.Text = titleForm;
             label1.Text = titleForm;

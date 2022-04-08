@@ -204,6 +204,23 @@ namespace asimov
                     dgv.Rows.Add(item["user_id"], item["user_nom"] + " " + item["user_prenom"] + " (" + item["user_age"]  + "ans)", item["user_sexe"], item["user_tel"]);
                 }
             }
+
+            // si classes
+            if (type == "CLA")
+            {
+                // ajout des colonnes
+                dgv.Columns.Add("id", "#");
+                dgv.Columns.Add("annee", "Année Sscolaire");
+                dgv.Columns.Add("classe", "Classe");
+                dgv.Columns.Add("libelle", "Libellé");
+                dgv.Columns.Add("principal", "Prof. Principal");
+
+                // affichage des data dans le tableau
+                foreach (var item in data["lesClasses"])
+                {
+                    dgv.Rows.Add(item["cursus_id"], item["cursus_anneeScolaire"], item["classe_libelle"], item["cursus_libelle"], item["user_nom"] + " " + item["user_prenom"]);
+                }
+            }
         }
 
 
@@ -274,6 +291,23 @@ namespace asimov
                 detail += "\nDate de naissance : " + data[typeuser]["user_dateNaissance"].ToString() + " (" + data[typeuser]["user_age"].ToString()  + "ans)";
                 detail += "\nTél : " + data[typeuser]["user_tel"].ToString();
                 detail += "\nEmail : " + data[typeuser]["user_mail"].ToString();
+            }
+            
+            // si classe
+            if (type == "CLA")
+            {
+                // les détails
+                detail = "id : " + data["uneClasse"]["cursus_id"].ToString();
+                detail += "\nAnnée Scolaire : " + data["uneClasse"]["cursus_anneeScolaire"].ToString();
+                detail += "\nClasse : " + data["uneClasse"]["classe_libelle"].ToString();
+                detail += "\nLibellé : " + data["uneClasse"]["cursus_libelle"].ToString();
+                detail += "\nProfesseur principal : " + data["uneClasse"]["user_nom"].ToString() + " " + data["uneClasse"]["user_prenom"].ToString();
+                detail += "\n\n";
+                // for eleve in lesEleves
+                foreach (var item in data["lesElevesClasse"])
+                {
+                    detail += "\nÉlève : " + item["user_nom"].ToString() + " " + item["user_prenom"].ToString();
+                }
             }
 
             // retourner detail

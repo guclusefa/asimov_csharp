@@ -82,6 +82,7 @@
             this.btn_classes.TabIndex = 6;
             this.btn_classes.Text = "Les classes";
             this.btn_classes.UseVisualStyleBackColor = true;
+            this.btn_classes.Click += new System.EventHandler(this.btn_classes_Click);
             // 
             // btn_profs
             // 
