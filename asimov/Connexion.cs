@@ -15,22 +15,18 @@ namespace asimov
             InitializeComponent();
         }
 
-        // format json pour la requete de connexion
-        private string jsonConnexion(string id, string mdp)
-        {
-            string json = "{" +
-                "\"identification\":\"" + id + "\"," +
-                "\"motdepasse\":\"" + mdp + "\"" +
-                "}";
-            return json;
-        }
-
         // connexion
         private void btn_connexion_Click(object sender, EventArgs e)
         {
             // requete post
             string url = "/connexion";
-            string json = jsonConnexion(tb_identification.Text, tb_motdepasse.Text);
+
+            // les params
+            string[] lesParams = { "identification", tb_identification.Text,
+                                   "motdepasse", tb_motdepasse.Text };
+
+            // conversion json
+            string json = methods.generateJson(lesParams);
             
             // on recupere data
             var data = methods.postRequest(url, json);

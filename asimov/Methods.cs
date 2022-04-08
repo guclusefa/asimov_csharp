@@ -134,9 +134,9 @@ namespace asimov
         }
 
 
-        // CRUD PAR TYPE --------------------------------------------------
+        // ######################################### DEBUT CRUD #####################################################################################
 
-        // remplir datagridview
+        // remplir datagridview --------------------------------------------------------------------------
         public void fillDataGrid(DataGridView dgv, string url, string type)
         {
             // requete 
@@ -152,19 +152,8 @@ namespace asimov
                 // delete all collums
                 dgv.Columns.Clear();
 
-                // si matiere
-                if (type == "MAT")
-                {
-                    // ajout des colonnes
-                    dgv.Columns.Add("id", "#");
-                    dgv.Columns.Add("libelle", "Libellé");
-
-                    // affichage des data dans le tableau
-                    foreach (var item in data["lesMatieres"])
-                    {
-                        dgv.Rows.Add(item["matiere_id"], item["matiere_libelle"]);
-                    }
-                }
+                // dgv format
+                dataGridFormat(dgv, data, type);
             }
             else
             {
@@ -172,9 +161,32 @@ namespace asimov
             }
         }
 
-        // afficher detail
-        public void showDetail(string url, DataGridView dgv, string type)
+        // dataGrid format
+        public void dataGridFormat(DataGridView dgv, JObject data, string type)
         {
+            // si matiere
+            if (type == "MAT")
+            {
+                // ajout des colonnes
+                dgv.Columns.Add("id", "#");
+                dgv.Columns.Add("libelle", "Libellé");
+
+                // affichage des data dans le tableau
+                foreach (var item in data["lesMatieres"])
+                {
+                    dgv.Rows.Add(item["matiere_id"], item["matiere_libelle"]);
+                }
+            }
+        }
+
+
+
+        // afficher detail --------------------------------------------------------------------------
+        public void showDetail(string route, DataGridView dgv, string type)
+        {
+            // url en fonction route
+            string url = route + "/fiche/";
+
             if (dgv.SelectedRows.Count != 0)
             {
                 // recupere id selectionné
@@ -187,14 +199,9 @@ namespace asimov
                 // si autorisé a detailer
                 if (string.Equals(data["erreur"].ToString(), "[]"))
                 {
-                    string detail = "";
-
-                    if (type == "MAT")
-                    {
-                        // les détails
-                        detail = "id : " + data["uneMatiere"]["matiere_id"].ToString();
-                        detail += "\nLibellé : " + data["uneMatiere"]["matiere_libelle"].ToString();
-                    }
+                    // detail format
+                    string detail = detailFormat(data, type);
+                    
                     // affichage
                     MessageBox.Show(detail, "Détail");
                 }
@@ -208,25 +215,45 @@ namespace asimov
                 MessageBox.Show("Veuillez selectionner une ligne", "Erreur");
             }
 
-        }        
-        
-        // afficher ajouter
-        public void showAdd(string url, DataGridView dgv, string type)
+        }
+
+        // detail format
+        public string detailFormat(JObject data, string type)
         {
+            // initilisation
+            string detail = "";
+
+            // si matiere
+            if (type == "MAT")
+            {
+                // les détails
+                detail = "id : " + data["uneMatiere"]["matiere_id"].ToString();
+                detail += "\nLibellé : " + data["uneMatiere"]["matiere_libelle"].ToString();
+            }
+
+            // retourner detail
+            return detail;
+        }
+
+
+
+        // afficher ajouter --------------------------------------------------------------------------
+        public void showAdd(string route, DataGridView dgv, string type)
+        {
+            // url en fonction route
+            string url = route + "/ajouter";            
+            
             // request
             var data = getRequest(url);
 
             // si autorisé a ajouter
             if (string.Equals(data["erreur"].ToString(), "[]"))
             {
-                if (type == "MAT")
-                {
-                    // open ajouter matiere dialog
-                    FormMatiere form = new FormMatiere(0, "0");
-                    form.ShowDialog();
-                    // refresh
-                    fillDataGrid(dgv, "/matieres/liste", "MAT");
-                }
+                // ouvrir form en fonction type
+                formatAdd(type);
+                
+                // refresh
+                fillDataGrid(dgv, route + "/liste", type);
             }
             else
             {
@@ -234,9 +261,26 @@ namespace asimov
             }
         }
 
-        // afficher modifier
-        public void showModify(string url, DataGridView dgv, string type)
+        // ajouter format
+        public void formatAdd(string type)
         {
+            // si matieres
+            if (type == "MAT")
+            {
+                // open ajouter matiere dialog
+                FormMatiere form = new FormMatiere(0, "0");
+                form.ShowDialog();
+            }
+        }
+
+
+
+        // afficher modifier --------------------------------------------------------------------------
+        public void showModify(string route, DataGridView dgv, string type)
+        {
+            // url en fonction route
+            string url = route + "/modifier/";
+            
             if (dgv.SelectedRows.Count != 0)
             {
                 // recupere id selectionné
@@ -249,14 +293,11 @@ namespace asimov
                 // si autorisé a modifier
                 if (string.Equals(data["erreur"].ToString(), "[]"))
                 {
-                    if (type == "MAT")
-                    {
-                        // open modifier matiere dialog
-                        FormMatiere form = new FormMatiere(1, row.Cells["id"].Value.ToString());
-                        form.ShowDialog();
-                        // refresh
-                        fillDataGrid(dgv, "/matieres/liste", "MAT");
-                    }
+                    // ouvrir form modifier
+                    formatModify(type, row);
+
+                    // refresh
+                    fillDataGrid(dgv, route + "/liste", type);
                 }
                 else
                 {
@@ -269,9 +310,25 @@ namespace asimov
             }
         }
 
-        // suppirmer
-        public void delete(string url, DataGridView dgv, string type)
+        // modifier format
+        public void formatModify(string type, DataGridViewRow row)
         {
+            // si matieres
+            if (type == "MAT")
+            {
+                // open modifier matiere dialog
+                FormMatiere form = new FormMatiere(1, row.Cells["id"].Value.ToString());
+                form.ShowDialog();
+            }
+        }
+
+
+        // suppirmer --------------------------------------------------------------------------
+        public void delete(string route, DataGridView dgv, string type)
+        {
+            // url en fonction route
+            string url = route + "/supprimer/";
+            
             // si ligne choisie
             if (dgv.SelectedRows.Count != 0)
             {
@@ -305,11 +362,7 @@ namespace asimov
                     MessageBox.Show("Supprimé " + (dgv.SelectedRows.Count - i).ToString() + " ligne(s) avec succès", "Succès");
 
                     // refresh
-                    if (type == "MAT")
-                    {
-                        // refresh
-                        fillDataGrid(dgv, "/matieres/liste", "MAT");
-                    }
+                    fillDataGrid(dgv, route + "/liste", type);
                 }
             }
             else
@@ -318,7 +371,8 @@ namespace asimov
             }
         }
 
-        // valider formulaire
+
+        // valider formulaire --------------------------------------------------------------------------
         public void validate(string url, string json, Form form)
         {
             // on recupere data
@@ -335,5 +389,33 @@ namespace asimov
                 MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
             }
         }
+
+        // generate json from string array
+        public string generateJson(string[] data)
+        {
+            // initilisation
+            string json = "{";
+
+            // boucle
+            for (int i = 0; i < data.Length; i++)
+            {
+                json += "\"" + data[i] + "\"" + ":" + "\"" + data[i + 1] + "\",";
+                i++;
+
+                // erase last comma
+                if (i == data.Length - 1)
+                {
+                    json = json.Remove(json.Length - 1);
+                }
+            }
+
+            // fermeture
+            json += "}";
+
+            // retourner json
+            return json;
+        }
+
+        // ######################################### FIN CRUD #####################################################################################
     }
 }

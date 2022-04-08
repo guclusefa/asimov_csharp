@@ -43,44 +43,29 @@ namespace asimov
             }
         }
 
-        // format json pour ajouter
-        private string jsonAjouter(string libelle)
-        {
-            string json = "{" +
-                "\"libelle\":\"" + libelle + "\"" +
-                "}";
-            return json;
-        }
-        
-        // format json pour modifier
-        private string jsonModifier(string libelle, string id)
-        {
-            string json = "{" +
-                "\"libelle\":\"" + libelle + "\"," +
-                "\"id\":\"" + id + "\"" +
-                "}";
-            return json;
-        }
-
         // valider
         private void btn_valider_Click(object sender, EventArgs e)
         {
-            string url;
-            string json;
-            
             // si pour ajouter sinon pour ajouter
             if (modifier == 0)
             {
-                url = "/matieres/ajouter";
-                json = jsonAjouter(tb_libelle.Text);
+                // les params ajouter
+                string url = "/matieres/ajouter";
+                string[] lesParams = { "libelle", tb_libelle.Text };
+                string json = methods.generateJson(lesParams);
+                
+                //requete ajouter
+                methods.validate(url, json, this);
             } else
             {
-                url = "/matieres/modifier/" + id;
-                json = jsonModifier(tb_libelle.Text, id);
+                // les params modifier
+                string url = "/matieres/modifier/" + id;
+                string[] lesParams = { "libelle", tb_libelle.Text, "id", id};
+                string json = methods.generateJson(lesParams);
+                
+                //requete modifier
+                methods.validate(url, json, this);
             }
-            
-            //requete
-            methods.validate(url, json, this);
         }
     }
 }

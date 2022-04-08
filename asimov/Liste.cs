@@ -41,25 +41,25 @@ namespace asimov
         // détail
         private void btn_detail_Click(object sender, EventArgs e)
         {
-            methods.showDetail(route + "/fiche/", dgv_liste, type);
+            methods.showDetail(route, dgv_liste, type);
         }
         
         // ajouter
         private void btn_ajouter_Click(object sender, EventArgs e)
         {
-            methods.showAdd(route + "/ajouter", dgv_liste, type);
+            methods.showAdd(route, dgv_liste, type);
         }
 
         // modifier
         private void btn_modifier_Click(object sender, EventArgs e)
         {
-            methods.showModify(route + "/modifier/", dgv_liste, type);
+            methods.showModify(route, dgv_liste, type);
         }
 
         // supprimer
         private void btn_supprimer_Click(object sender, EventArgs e)
         {
-            methods.delete(route + "/supprimer/", dgv_liste, type);
+            methods.delete(route, dgv_liste, type);
         }
 
         // chercher
