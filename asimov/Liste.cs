@@ -20,6 +20,7 @@ namespace asimov
         public static string route;
         public static string type;
 
+        // initialisation
         public Liste(string titreForm, string routeForm, string typeForm)
         {
             InitializeComponent();

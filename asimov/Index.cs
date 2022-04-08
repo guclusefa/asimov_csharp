@@ -15,6 +15,7 @@ namespace asimov
         // importation des methods
         Methods methods = new Methods();
 
+        // initialisation
         public Index()
         {
             InitializeComponent();

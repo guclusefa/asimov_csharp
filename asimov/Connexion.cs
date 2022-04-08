@@ -9,6 +9,7 @@ namespace asimov
         // importation des methodes
         Methods methods = new Methods();
 
+        // initilisation
         public Connexion()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace asimov
             return json;
         }
 
-        // on envoie la requete de connexion
+        // connexion
         private void btn_connexion_Click(object sender, EventArgs e)
         {
             // requete post
