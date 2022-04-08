@@ -34,16 +34,18 @@ namespace asimov
             // si connecte
             if (data["user_info"] != null)
             {
+                /*
                 // msg valid
-                MessageBox.Show(data["valid"][0].ToString(), "Succès");
-
+                MessageBox.Show(data["valid"][0].ToString(), "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                */
+                
                 // ouvrir index
                 this.Hide();
                 Index index = new Index();
                 index.Show();
             } else {
                 // msg erreur
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

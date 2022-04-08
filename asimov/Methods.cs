@@ -76,7 +76,7 @@ namespace asimov
             /*
             else
             {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             */
         }
@@ -161,7 +161,7 @@ namespace asimov
             }
             else
             {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -190,6 +190,7 @@ namespace asimov
                 dgv.Columns.Add("nom", "NOM");
                 dgv.Columns.Add("sexe", "Sexe");
                 dgv.Columns.Add("tel", "Tel");
+                dgv.Columns.Add("mail", "Mail");
 
                 // si lesEleves ou lesProfs
                 string typeuser = "lesEleves";
@@ -201,8 +202,11 @@ namespace asimov
                 // affichage des data dans le tableau
                 foreach (var item in data[typeuser])
                 {
-                    dgv.Rows.Add(item["user_id"], item["user_nom"] + " " + item["user_prenom"] + " (" + item["user_age"]  + "ans)", item["user_sexe"], item["user_tel"]);
+                    dgv.Rows.Add(item["user_id"], item["user_nom"] + " " + item["user_prenom"] + " (" + item["user_age"] + "ans)", item["user_sexe"], item["user_tel"], item["user_mail"]);
                 }
+
+                // hide id column
+                dgv.Columns["id"].Visible = false;
             }
 
             // si classes
@@ -247,16 +251,16 @@ namespace asimov
                     string detail = detailFormat(data, type);
                     
                     // affichage
-                    MessageBox.Show(detail, "Détail");
+                    MessageBox.Show(detail, "Détail", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                    MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Veuillez selectionner une ligne", "Erreur");
+                MessageBox.Show("Veuillez selectionner une ligne", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -302,12 +306,25 @@ namespace asimov
                 detail += "\nClasse : " + data["uneClasse"]["classe_libelle"].ToString();
                 detail += "\nLibellé : " + data["uneClasse"]["cursus_libelle"].ToString();
                 detail += "\nProfesseur principal : " + data["uneClasse"]["user_nom"].ToString() + " " + data["uneClasse"]["user_prenom"].ToString();
-                detail += "\n\n";
-                // for eleve in lesEleves
+
+                // count lesElevesClasse
+                detail += "\n\nLes élèves : " + countArray(data["lesElevesClasse"]);
+
+                // les eleves
                 foreach (var item in data["lesElevesClasse"])
                 {
-                    detail += "\nÉlève : " + item["user_nom"].ToString() + " " + item["user_prenom"].ToString();
+                    detail += "\n" + item["user_nom"].ToString() + " " + item["user_prenom"].ToString();
                 }
+
+                // count lesElevesClasse
+                detail += "\n\nLes professeurs : " + countArray(data["lesProfsClasse"]);
+
+                // les profs
+                foreach (var item in data["lesProfsClasse"])
+                {
+                    detail += "\n" + item["user_nom"].ToString() + " " + item["user_prenom"].ToString() + " (" + item["matiere_libelle"] + ")";
+                }
+
             }
 
             // retourner detail
@@ -336,7 +353,7 @@ namespace asimov
             }
             else
             {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -393,12 +410,12 @@ namespace asimov
                 }
                 else
                 {
-                    MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                    MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("Veuillez selectionner une ligne", "Erreur");
+                MessageBox.Show("Veuillez selectionner une ligne", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -440,7 +457,7 @@ namespace asimov
                 // confirmations
                 var confirmResult = MessageBox.Show("Êtes-vous sûr de supprimer " + dgv.SelectedRows.Count.ToString() + " ligne(s) ?",
                     "Confirmation",
-                    MessageBoxButtons.YesNo);
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
 
                 // si supprimer
@@ -458,13 +475,13 @@ namespace asimov
                         // si erreur lors supp
                         if (!string.Equals(data["erreur"].ToString(), "[]"))
                         {
-                            MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                            MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             i++;
                         }
                     }
 
                     // msg succès avec le total de supp avec succès
-                    MessageBox.Show("Supprimé " + (dgv.SelectedRows.Count - i).ToString() + " ligne(s) avec succès", "Succès");
+                    MessageBox.Show("Supprimé " + (dgv.SelectedRows.Count - i).ToString() + " ligne(s) avec succès", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     // refresh
                     fillDataGrid(dgv, route + "/liste", type);
@@ -472,7 +489,7 @@ namespace asimov
             }
             else
             {
-                MessageBox.Show("Veuillez selectionner une ligne", "Erreur");
+                MessageBox.Show("Veuillez selectionner une ligne", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -486,12 +503,12 @@ namespace asimov
             // si pas d'erreur
             if (string.Equals(data["erreur"].ToString(), "[]"))
             {
-                MessageBox.Show(data["valid"][0].ToString(), "Succès");
+                MessageBox.Show(data["valid"][0].ToString(), "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 form.Close();
             }
             else
             {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -550,5 +567,15 @@ namespace asimov
             }
         }
 
+        // count array
+        public int countArray(JToken data)
+        {
+            int i = 0;
+            foreach (var item in data)
+            {
+                i++;
+            }
+            return i;
+        }
     }
 }

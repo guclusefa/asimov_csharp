@@ -67,11 +67,11 @@ namespace asimov
             // si valid
             if (data["valid"] != null)
             {
-                MessageBox.Show(data["valid"][0].ToString(), "Succès");
+                MessageBox.Show(data["valid"][0].ToString(), "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
+                MessageBox.Show(data["erreur"][0].ToString(), "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             // revenir page de connexion
