@@ -24,20 +24,21 @@ namespace asimov
             httpWebRequest.Method = "POST";
             httpWebRequest.CookieContainer = cookieContainer;
 
-            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
-            {
-                streamWriter.Write(json);
-                streamWriter.Flush();
-                streamWriter.Close();
-            }
+                using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(json);
+                    streamWriter.Flush();
+                    streamWriter.Close();
+                }
 
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
-            {
-                var result = streamReader.ReadToEnd();
-                var data = (JObject)JsonConvert.DeserializeObject<dynamic>(result);
-                return data;
-            }
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    var data = (JObject)JsonConvert.DeserializeObject<dynamic>(result);
+                    return data;
+                }
+
         }
 
         // make get request
@@ -71,10 +72,13 @@ namespace asimov
                 form.Hide();
                 formAOuvrir.Show();
             }
+
+            /*
             else
             {
                 MessageBox.Show(data["erreur"][0].ToString(), "Erreur");
             }
+            */
         }
 
         // revenir index
@@ -177,6 +181,29 @@ namespace asimov
                     dgv.Rows.Add(item["matiere_id"], item["matiere_libelle"]);
                 }
             }
+
+            // si eleve
+            if (type == "ELE" || type == "PRO")
+            {
+                // ajout des colonnes
+                dgv.Columns.Add("id", "#");
+                dgv.Columns.Add("nom", "NOM");
+                dgv.Columns.Add("sexe", "Sexe");
+                dgv.Columns.Add("tel", "Tel");
+
+                // si lesEleves ou lesProfs
+                string typeuser = "lesEleves";
+                if (type == "PRO")
+                {
+                    typeuser = "lesProfs";
+                }
+
+                // affichage des data dans le tableau
+                foreach (var item in data[typeuser])
+                {
+                    dgv.Rows.Add(item["user_id"], item["user_nom"] + " " + item["user_prenom"] + " (" + item["user_age"]  + "ans)", item["user_sexe"], item["user_tel"]);
+                }
+            }
         }
 
 
@@ -231,6 +258,24 @@ namespace asimov
                 detail += "\nLibellé : " + data["uneMatiere"]["matiere_libelle"].ToString();
             }
 
+            // si eleves
+            if (type == "ELE" || type == "PRO")
+            {
+                // si eleve ou prof
+                string typeuser = "unEleve";
+                if (type == "PRO")
+                {
+                    typeuser = "unProf";
+                }
+                // les détails
+                detail = "id : " + data[typeuser]["user_id"].ToString();
+                detail += "\nNOM : " + data[typeuser]["user_nom"].ToString();
+                detail += "\nPrénom : " + data[typeuser]["user_prenom"].ToString();
+                detail += "\nDate de naissance : " + data[typeuser]["user_dateNaissance"].ToString() + " (" + data[typeuser]["user_age"].ToString()  + "ans)";
+                detail += "\nTél : " + data[typeuser]["user_tel"].ToString();
+                detail += "\nEmail : " + data[typeuser]["user_mail"].ToString();
+            }
+
             // retourner detail
             return detail;
         }
@@ -267,8 +312,21 @@ namespace asimov
             // si matieres
             if (type == "MAT")
             {
-                // open ajouter matiere dialog
                 FormMatiere form = new FormMatiere(0, "0");
+                form.ShowDialog();
+            }
+
+            // si eleves
+            if (type == "ELE")
+            {
+                FormUser form = new FormUser(0, "0", "ELE");
+                form.ShowDialog();
+            }
+
+            // si profs
+            if (type == "PRO")
+            {
+                FormUser form = new FormUser(0, "0", "PRO");
                 form.ShowDialog();
             }
         }
@@ -316,10 +374,23 @@ namespace asimov
             // si matieres
             if (type == "MAT")
             {
-                // open modifier matiere dialog
                 FormMatiere form = new FormMatiere(1, row.Cells["id"].Value.ToString());
                 form.ShowDialog();
             }
+            // si eleves
+            if (type == "ELE")
+            {
+                FormUser form = new FormUser(1, row.Cells["id"].Value.ToString(), "ELE");
+                form.ShowDialog();
+            }
+
+            // si profs
+            if (type == "PRO")
+            {
+                FormUser form = new FormUser(1, row.Cells["id"].Value.ToString(), "PRO");
+                form.ShowDialog();
+            }
+
         }
 
 
@@ -417,5 +488,33 @@ namespace asimov
         }
 
         // ######################################### FIN CRUD #####################################################################################
+
+        // init combobox sexer
+        public void initSexe(ComboBox cb) {
+            // init sexe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un sexe", Value = "-1" });
+            cb.Items.Add(new { Text = "Masculin", Value = "M" });
+            cb.Items.Add(new { Text = "Féminin", Value = "F" });
+            cb.SelectedIndex = 0;
+        }
+
+        // get select comboBox
+        public void getSelect(ComboBox cb, string data)
+        {
+            foreach (var item in (cb.Items as dynamic))
+            {
+                // if item value is equal to data
+                if (item.Value.ToString() == data)
+                {
+                    // select item
+                    cb.SelectedItem = item;
+                }
+            }
+        }
+
     }
 }

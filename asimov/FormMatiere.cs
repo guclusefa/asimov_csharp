@@ -32,7 +32,7 @@ namespace asimov
             {
                 // les labels
                 this.Text = "Modifier matière";
-                label1.Text = "Modifier";
+                label1.Text = "Modifier matière";
                 btn_valider.Text = "Modifier";
 
                 // les values
@@ -46,26 +46,28 @@ namespace asimov
         // valider
         private void btn_valider_Click(object sender, EventArgs e)
         {
+            // les params
+            string url;
+            string[] lesParams = { "libelle", tb_libelle.Text };
+
             // si pour ajouter sinon pour ajouter
             if (modifier == 0)
             {
                 // les params ajouter
-                string url = "/matieres/ajouter";
-                string[] lesParams = { "libelle", tb_libelle.Text };
-                string json = methods.generateJson(lesParams);
-                
-                //requete ajouter
-                methods.validate(url, json, this);
+                url = "/matieres/ajouter";
             } else
             {
                 // les params modifier
-                string url = "/matieres/modifier/" + id;
-                string[] lesParams = { "libelle", tb_libelle.Text, "id", id};
-                string json = methods.generateJson(lesParams);
+                url = "/matieres/modifier/" + id;
                 
-                //requete modifier
-                methods.validate(url, json, this);
+                // add to lesParams
+                lesParams = lesParams.Concat(new string[] { "id", id }).ToArray();
             }
+            // json
+            string json = methods.generateJson(lesParams);
+
+            //requete ajouter
+            methods.validate(url, json, this);            
         }
     }
 }

@@ -38,39 +38,37 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(7, 12);
+            this.label1.Location = new System.Drawing.Point(6, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(165, 54);
+            this.label1.Size = new System.Drawing.Size(242, 45);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Ajouter ";
+            this.label1.Text = "Ajouter matière";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label2.Location = new System.Drawing.Point(11, 89);
+            this.label2.Location = new System.Drawing.Point(10, 67);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(68, 28);
+            this.label2.Size = new System.Drawing.Size(55, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Libellé";
             // 
             // tb_libelle
             // 
             this.tb_libelle.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tb_libelle.Location = new System.Drawing.Point(17, 121);
-            this.tb_libelle.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tb_libelle.Location = new System.Drawing.Point(15, 91);
             this.tb_libelle.Name = "tb_libelle";
             this.tb_libelle.PlaceholderText = "Libellé";
-            this.tb_libelle.Size = new System.Drawing.Size(337, 34);
+            this.tb_libelle.Size = new System.Drawing.Size(295, 29);
             this.tb_libelle.TabIndex = 3;
             // 
             // btn_valider
             // 
             this.btn_valider.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_valider.Location = new System.Drawing.Point(17, 204);
-            this.btn_valider.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_valider.Location = new System.Drawing.Point(15, 153);
             this.btn_valider.Name = "btn_valider";
-            this.btn_valider.Size = new System.Drawing.Size(337, 39);
+            this.btn_valider.Size = new System.Drawing.Size(295, 29);
             this.btn_valider.TabIndex = 4;
             this.btn_valider.Text = "Ajouter";
             this.btn_valider.UseVisualStyleBackColor = true;
@@ -78,15 +76,14 @@
             // 
             // FormMatiere
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 279);
+            this.ClientSize = new System.Drawing.Size(331, 209);
             this.Controls.Add(this.btn_valider);
             this.Controls.Add(this.tb_libelle);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "FormMatiere";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

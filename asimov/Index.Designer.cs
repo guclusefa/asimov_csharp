@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btn_notes = new System.Windows.Forms.Button();
+            this.btn_evaluations = new System.Windows.Forms.Button();
+            this.btn_classes = new System.Windows.Forms.Button();
+            this.btn_profs = new System.Windows.Forms.Button();
+            this.btn_eleves = new System.Windows.Forms.Button();
             this.btn_matieres = new System.Windows.Forms.Button();
             this.btn_deconnexion = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -50,60 +50,62 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Accueil";
             // 
-            // button2
+            // btn_notes
             // 
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button2.Location = new System.Drawing.Point(39, 87);
-            this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(213, 24);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Les notes";
-            this.button2.UseVisualStyleBackColor = true;
+            this.btn_notes.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_notes.Location = new System.Drawing.Point(39, 87);
+            this.btn_notes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_notes.Name = "btn_notes";
+            this.btn_notes.Size = new System.Drawing.Size(213, 24);
+            this.btn_notes.TabIndex = 4;
+            this.btn_notes.Text = "Les notes";
+            this.btn_notes.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btn_evaluations
             // 
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button1.Location = new System.Drawing.Point(39, 136);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(213, 24);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Les évaluations";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_evaluations.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_evaluations.Location = new System.Drawing.Point(39, 136);
+            this.btn_evaluations.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_evaluations.Name = "btn_evaluations";
+            this.btn_evaluations.Size = new System.Drawing.Size(213, 24);
+            this.btn_evaluations.TabIndex = 5;
+            this.btn_evaluations.Text = "Les évaluations";
+            this.btn_evaluations.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btn_classes
             // 
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button3.Location = new System.Drawing.Point(39, 179);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(213, 24);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Les classes";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btn_classes.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_classes.Location = new System.Drawing.Point(39, 179);
+            this.btn_classes.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_classes.Name = "btn_classes";
+            this.btn_classes.Size = new System.Drawing.Size(213, 24);
+            this.btn_classes.TabIndex = 6;
+            this.btn_classes.Text = "Les classes";
+            this.btn_classes.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btn_profs
             // 
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button4.Location = new System.Drawing.Point(39, 223);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(213, 24);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Les professeurs";
-            this.button4.UseVisualStyleBackColor = true;
+            this.btn_profs.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_profs.Location = new System.Drawing.Point(39, 223);
+            this.btn_profs.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_profs.Name = "btn_profs";
+            this.btn_profs.Size = new System.Drawing.Size(213, 24);
+            this.btn_profs.TabIndex = 7;
+            this.btn_profs.Text = "Les professeurs";
+            this.btn_profs.UseVisualStyleBackColor = true;
+            this.btn_profs.Click += new System.EventHandler(this.btn_profs_Click);
             // 
-            // button5
+            // btn_eleves
             // 
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button5.Location = new System.Drawing.Point(39, 270);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(213, 24);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "Les élèves";
-            this.button5.UseVisualStyleBackColor = true;
+            this.btn_eleves.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_eleves.Location = new System.Drawing.Point(39, 270);
+            this.btn_eleves.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btn_eleves.Name = "btn_eleves";
+            this.btn_eleves.Size = new System.Drawing.Size(213, 24);
+            this.btn_eleves.TabIndex = 8;
+            this.btn_eleves.Text = "Les élèves";
+            this.btn_eleves.UseVisualStyleBackColor = true;
+            this.btn_eleves.Click += new System.EventHandler(this.btn_eleves_Click);
             // 
             // btn_matieres
             // 
@@ -158,11 +160,11 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.btn_deconnexion);
             this.Controls.Add(this.btn_matieres);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btn_eleves);
+            this.Controls.Add(this.btn_profs);
+            this.Controls.Add(this.btn_classes);
+            this.Controls.Add(this.btn_evaluations);
+            this.Controls.Add(this.btn_notes);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -178,11 +180,11 @@
         #endregion
 
         private Label label1;
-        private Button button2;
-        private Button button1;
-        private Button button3;
-        private Button button4;
-        private Button button5;
+        private Button btn_notes;
+        private Button btn_evaluations;
+        private Button btn_classes;
+        private Button btn_profs;
+        private Button btn_eleves;
         private Button btn_matieres;
         private Button btn_deconnexion;
         private Label label2;

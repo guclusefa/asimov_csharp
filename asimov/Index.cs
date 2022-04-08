@@ -25,6 +25,22 @@ namespace asimov
             label_nomUser.Text = data["user_info"]["user_prenom"].ToString() + " " + data["user_info"]["user_nom"].ToString();
         }
 
+        // les profs
+        private void btn_profs_Click(object sender, EventArgs e)
+        {
+            // ouvrir profs
+            Liste form = new Liste("Les professeurs", "/profs", "PRO");
+            methods.openForm("/profs/liste", this, form);
+        }
+
+        // les eleves
+        private void btn_eleves_Click(object sender, EventArgs e)
+        {
+            // ouvrir eleves
+            Liste form = new Liste("Les elèves", "/eleves", "ELE");
+            methods.openForm("/eleves/liste", this, form);
+        }
+
         // les matieres
         private void btn_matieres_Click(object sender, EventArgs e)
         {
@@ -55,5 +71,6 @@ namespace asimov
             Connexion connexion = new Connexion();
             connexion.Show();
         }
+
     }
 }
