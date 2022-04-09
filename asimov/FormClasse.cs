@@ -48,7 +48,23 @@ namespace asimov
 
                 // les values
                 data = methods.getRequest("/classes/modifier/" + id);
-            } else
+
+                //atribuer values
+                tb_libelle.Text = data["uneClasse"]["cursus_libelle"].ToString();
+                dtp_annee.Value = DateTime.Parse(methods.generateDateTime(data["uneClasse"]["cursus_anneeScolaire"].ToString()));
+
+                methods.getSelect(cb_classes, data["uneClasse"]["classe_id"].ToString());
+                methods.getSelect(cb_pp, data["uneClasse"]["user_id"].ToString());
+
+                // on ajoute une cb pr tout les eleves
+                foreach (JObject eleve in data["lesElevesClasse"])
+                {
+                    methods.addLesEleves(panel_eleves, data["lesEleves"]);
+                }
+
+                
+            }
+            else
             {
                 // on ajoute 1 cb eleve
                 methods.addLesEleves(panel_eleves, data["lesEleves"]);

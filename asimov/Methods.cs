@@ -474,6 +474,13 @@ namespace asimov
                 form.ShowDialog();
             }
 
+            // si classes
+            if (type == "CLA")
+            {
+                FormClasse form = new FormClasse(1, row.Cells["id"].Value.ToString());
+                form.ShowDialog();
+            }
+
         }
 
 
@@ -836,7 +843,26 @@ namespace asimov
             // return
             return values;
         }
-        
+
+        // generate date time from yyyy
+        public string generateDateTime(string yyyy)
+        {
+            // init
+            string date = "";
+
+            // if yyyy not empty
+            if (yyyy.Trim() != "")
+            {
+                // init
+                int y = Convert.ToInt32(yyyy);
+                // format dd/mm/yyyy
+                date = "01/01/" + y.ToString() + " 00:00:00";
+            }
+
+            // return
+            return date;
+        }
+
         // get select comboBox
         public void getSelect(ComboBox cb, string data)
         {
