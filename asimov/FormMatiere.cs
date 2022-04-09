@@ -31,8 +31,8 @@ namespace asimov
             if (modifier == 1)
             {
                 // les labels
-                this.Text = "Modifier matière";
-                label1.Text = "Modifier matière";
+                this.Text = "Modifier une matière";
+                label1.Text = "Modifier une matière";
                 btn_valider.Text = "Modifier";
 
                 // les values

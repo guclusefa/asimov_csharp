@@ -14,15 +14,17 @@ namespace asimov
         // host & cookie
         public static string host = "http://localhost:8080";
         public static CookieContainer cookieContainer = new CookieContainer();
-        
+
         // post request
         public JObject postRequest(string url, string json)
         {
-            string api = host + url;
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "POST";
-            httpWebRequest.CookieContainer = cookieContainer;
+            try
+            {
+                string api = host + url;
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "POST";
+                httpWebRequest.CookieContainer = cookieContainer;
 
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
@@ -38,24 +40,41 @@ namespace asimov
                     var data = (JObject)JsonConvert.DeserializeObject<dynamic>(result);
                     return data;
                 }
-
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur est survenue lors de la récupération des données, veuillez réessayer plus tard.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Restart();
+                Environment.Exit(0);
+                return null;
+            }
         }
 
         // make get request
         public JObject getRequest(string url)
         {
-            string api = host + url;
-            var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
-            httpWebRequest.ContentType = "application/json";
-            httpWebRequest.Method = "GET";
-            httpWebRequest.CookieContainer = cookieContainer;
-
-            var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            try
             {
-                var result = streamReader.ReadToEnd();
-                var data = (JObject)JsonConvert.DeserializeObject<dynamic>(result);
-                return data;
+                string api = host + url;
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(api);
+                httpWebRequest.ContentType = "application/json";
+                httpWebRequest.Method = "GET";
+                httpWebRequest.CookieContainer = cookieContainer;
+
+                var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
+                    var data = (JObject)JsonConvert.DeserializeObject<dynamic>(result);
+                    return data;
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Une erreur est survenue lors de la récupération des données, veuillez réessayer plus tard.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Restart();
+                Environment.Exit(0);
+                return null;
             }
         }
 
@@ -91,7 +110,8 @@ namespace asimov
         }
 
         // search in datagrid
-        public void searchDataGrid(DataGridView dgv, TextBox tb_search) {
+        public void searchDataGrid(DataGridView dgv, TextBox tb_search)
+        {
             // filter in grid
             dgv.CurrentCell = null;
             foreach (DataGridViewRow r in dgv.Rows)
@@ -116,7 +136,7 @@ namespace asimov
                 Label l = new Label();
                 l.Text = "Aucun résultat";
                 l.AutoSize = true;
-                l.Font = new Font("Arial", 12);
+                l.Font = new Font("Segoe UI", 12);
                 // no background color
                 l.BackColor = Color.Transparent;
                 // lable in middle of dategrid
@@ -249,7 +269,7 @@ namespace asimov
                 {
                     // detail format
                     string detail = detailFormat(data, type);
-                    
+
                     // affichage
                     MessageBox.Show(detail, "Détail", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -292,11 +312,11 @@ namespace asimov
                 detail = "id : " + data[typeuser]["user_id"].ToString();
                 detail += "\nNOM : " + data[typeuser]["user_nom"].ToString();
                 detail += "\nPrénom : " + data[typeuser]["user_prenom"].ToString();
-                detail += "\nDate de naissance : " + data[typeuser]["user_dateNaissance"].ToString() + " (" + data[typeuser]["user_age"].ToString()  + "ans)";
+                detail += "\nDate de naissance : " + data[typeuser]["user_dateNaissance"].ToString() + " (" + data[typeuser]["user_age"].ToString() + "ans)";
                 detail += "\nTél : " + data[typeuser]["user_tel"].ToString();
                 detail += "\nEmail : " + data[typeuser]["user_mail"].ToString();
             }
-            
+
             // si classe
             if (type == "CLA")
             {
@@ -337,8 +357,8 @@ namespace asimov
         public void showAdd(string route, DataGridView dgv, string type)
         {
             // url en fonction route
-            string url = route + "/ajouter";            
-            
+            string url = route + "/ajouter";
+
             // request
             var data = getRequest(url);
 
@@ -347,7 +367,7 @@ namespace asimov
             {
                 // ouvrir form en fonction type
                 formatAdd(type);
-                
+
                 // refresh
                 fillDataGrid(dgv, route + "/liste", type);
             }
@@ -380,6 +400,14 @@ namespace asimov
                 FormUser form = new FormUser(0, "0", "PRO");
                 form.ShowDialog();
             }
+
+
+            // si classe
+            if (type == "CLA")
+            {
+                FormClasse form = new FormClasse(0, "0");
+                form.ShowDialog();
+            }
         }
 
 
@@ -389,7 +417,7 @@ namespace asimov
         {
             // url en fonction route
             string url = route + "/modifier/";
-            
+
             if (dgv.SelectedRows.Count != 0)
             {
                 // recupere id selectionné
@@ -450,7 +478,7 @@ namespace asimov
         {
             // url en fonction route
             string url = route + "/supprimer/";
-            
+
             // si ligne choisie
             if (dgv.SelectedRows.Count != 0)
             {
@@ -469,7 +497,7 @@ namespace asimov
                     {
                         // requete get
                         string urlDelete;
-                        
+
                         urlDelete = url + r.Cells["id"].Value.ToString();
                         var data = getRequest(urlDelete);
                         // si erreur lors supp
@@ -541,17 +569,224 @@ namespace asimov
         // ######################################### FIN CRUD #####################################################################################
 
         // init combobox sexer
-        public void initSexe(ComboBox cb) {
+        public void initSexe(ComboBox cb)
+        {
             // init sexe
             cb.DisplayMember = "Text";
             cb.ValueMember = "Value";
 
             cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir un sexe", Value = "-1" });
+            cb.Items.Add(new { Text = "Choisir un sexe", Value = " " });
             cb.Items.Add(new { Text = "Masculin", Value = "M" });
             cb.Items.Add(new { Text = "Féminin", Value = "F" });
             cb.SelectedIndex = 0;
         }
+
+
+        // init combobox classes
+        public void initClasses(ComboBox cb, JToken data)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir une classe", Value = " " });
+
+            // for each data
+            foreach (var item in data)
+            {
+                cb.Items.Add(new { Text = item["classe_libelle"].ToString(), Value = item["classe_id"].ToString() });
+            }
+
+            // selection 1er
+            cb.SelectedIndex = 0;
+        }
+
+        // init combobox profs
+        public void initProfsPrincipal(ComboBox cb, JToken data)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un professeur principal", Value = " " });
+
+            // for each data
+            foreach (var item in data)
+            {
+                cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString() });
+            }
+
+            // selection 1er
+            cb.SelectedIndex = 0;
+        }
+
+        // add combo box to panel
+        public void addLesMatieres(Panel p, JToken data, JToken dataProfs)
+        {
+            // init
+            int i = 0;
+            int x = 10;
+            int y = 10;
+            // width
+            int w = 337 - 25;
+            // height
+            int h = 30;
+            // font
+            Font font = new Font("Segoe UI", 12);
+            // drop down style
+            ComboBoxStyle style = ComboBoxStyle.DropDownList;
+            //width 
+            int dropDownWidth = 200;
+            // height
+            int dropDownHeight = 337;
+            // margin bottom
+            int marginBottom = 20;
+
+            // for each data
+            foreach (var item in data)
+            {
+                // init
+                ComboBox cb = new ComboBox();
+                cb.Name = "cb_matiere"+ item["matiere_id"].ToString();
+                cb.Location = new Point(x, y);
+                cb.Font = font;
+                cb.DropDownStyle = style;
+                cb.DropDownWidth = dropDownWidth;
+                cb.DropDownHeight = dropDownHeight;
+                // width
+                cb.Width = w;
+                // height
+                cb.Height = h;
+                // margin bottom
+                cb.Margin = new Padding(0, 0, 0, marginBottom);
+                // full width
+                cb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                // add to form
+                p.Controls.Add(cb);
+
+                // init combobox
+                initProfsMatieres(cb, item, dataProfs);
+
+                // next
+                i++;
+            }
+
+            // erase margin bottom from last combobox
+            p.Controls[p.Controls.Count - 1].Margin = new Padding(0, 0, 0, 0);
+        }
+
+        // init combobox profs
+        public void initProfsMatieres(ComboBox cb, JToken data, JToken dataProfs)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un professeur de " + data["matiere_libelle"], Value = " " });
+
+            // for each data
+            foreach (var item in dataProfs)
+            {
+                cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString()+", "+ data["matiere_id"].ToString() });
+            }
+
+            // selection 1er
+            cb.SelectedIndex = 0;
+        }
+
+        // add combo box to panel
+        public void addLesEleves(Panel p, JToken data)
+        {
+            // init
+            int i = 0;
+            int x = 10;
+            int y = 10;
+            // width
+            int w = 337 - 25;
+            // height
+            int h = 30;
+            // font
+            Font font = new Font("Segoe UI", 12);
+            // drop down style
+            ComboBoxStyle style = ComboBoxStyle.DropDownList;
+            //width 
+            int dropDownWidth = 200;
+            // height
+            int dropDownHeight = 337;
+            // margin bottom
+            int marginBottom = 20;
+
+                // init
+                ComboBox cb = new ComboBox();
+                cb.Name = "cb_eleve" + i.ToString();
+                cb.Location = new Point(x, y);
+                cb.Font = font;
+                cb.DropDownStyle = style;
+                cb.DropDownWidth = dropDownWidth;
+                cb.DropDownHeight = dropDownHeight;
+                // width
+                cb.Width = w;
+                // height
+                cb.Height = h;
+                // margin bottom
+                cb.Margin = new Padding(0, 0, 0, marginBottom);
+                // full width
+                cb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+                // add to form
+                p.Controls.Add(cb);
+
+                // init combobox
+                initEleves(cb, data);
+
+                // next
+                i++;
+        }
+
+        // delete combo box
+        public void deleteComboBox(Panel p)
+        {
+            // for each control
+            foreach (Control c in p.Controls)
+            {
+ 
+
+                // last combobox
+                if (c is ComboBox && p.Controls.Count > 1)
+                {
+                    // remove
+                    p.Controls.Remove(c);
+                    // break
+                    break;
+                }
+            }
+        }
+
+
+        // init les eleves
+        public void initEleves(ComboBox cb, JToken data)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un élève", Value = " " });
+
+            // for each data
+            foreach (var item in data)
+            {
+                cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString() });
+            }
+
+            // selection 1er
+            cb.SelectedIndex = 0;
+        }
+
+
 
         // get select comboBox
         public void getSelect(ComboBox cb, string data)
