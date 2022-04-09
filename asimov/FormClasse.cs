@@ -61,8 +61,6 @@ namespace asimov
                 {
                     methods.addLesEleves(panel_eleves, data["lesEleves"]);
                 }
-
-                
             }
             else
             {
