@@ -44,8 +44,10 @@ namespace asimov
             catch
             {
                 MessageBox.Show("Une erreur est survenue lors de la récupération des données, veuillez réessayer plus tard.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Restart();
+
+                // end application
                 Environment.Exit(0);
+
                 return null;
             }
         }
@@ -72,8 +74,10 @@ namespace asimov
             catch
             {
                 MessageBox.Show("Une erreur est survenue lors de la récupération des données, veuillez réessayer plus tard.", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Restart();
+
+                // end application
                 Environment.Exit(0);
+
                 return null;
             }
         }
@@ -549,7 +553,16 @@ namespace asimov
             // boucle
             for (int i = 0; i < data.Length; i++)
             {
-                json += "\"" + data[i] + "\"" + ":" + "\"" + data[i + 1] + "\",";
+                // si c un array on met pas less '"'
+                if (data[i+1].StartsWith("["))
+                {
+                    json += "\"" + data[i] + "\"" + ":" + data[i + 1] + ",";
+                }
+                else
+                {
+                    json += "\"" + data[i] + "\"" + ":" + "\"" + data[i + 1] + "\",";
+                }
+
                 i++;
 
                 // erase last comma
@@ -576,7 +589,7 @@ namespace asimov
             cb.ValueMember = "Value";
 
             cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir un sexe", Value = " " });
+            cb.Items.Add(new { Text = "Choisir un sexe", Value = "" });
             cb.Items.Add(new { Text = "Masculin", Value = "M" });
             cb.Items.Add(new { Text = "Féminin", Value = "F" });
             cb.SelectedIndex = 0;
@@ -591,7 +604,7 @@ namespace asimov
             cb.ValueMember = "Value";
 
             cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir une classe", Value = " " });
+            cb.Items.Add(new { Text = "Choisir une classe", Value = "" });
 
             // for each data
             foreach (var item in data)
@@ -611,7 +624,7 @@ namespace asimov
             cb.ValueMember = "Value";
 
             cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir un professeur principal", Value = " " });
+            cb.Items.Add(new { Text = "Choisir un professeur principal", Value = "" });
 
             // for each data
             foreach (var item in data)
@@ -686,7 +699,7 @@ namespace asimov
             cb.ValueMember = "Value";
 
             cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir un professeur de " + data["matiere_libelle"], Value = " " });
+            cb.Items.Add(new { Text = "Choisir un professeur de " + data["matiere_libelle"], Value = "" });
 
             // for each data
             foreach (var item in dataProfs)
@@ -774,7 +787,7 @@ namespace asimov
             cb.ValueMember = "Value";
 
             cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir un élève", Value = " " });
+            cb.Items.Add(new { Text = "Choisir un élève", Value = "" });
 
             // for each data
             foreach (var item in data)
@@ -787,7 +800,43 @@ namespace asimov
         }
 
 
+        // get values of all combo boxes of panel
+        public string getValuesComboBox(Panel p)
+        {
+            // init
+            string values = "[";
+            // for each control
+            foreach (Control c in p.Controls)
+            {
+                // if combobox
+                if (c is ComboBox)
+                {
+                    // c as combobox
+                    ComboBox cb = (ComboBox)c;
+                    string v = (cb.SelectedItem as dynamic).Value.ToString();
 
+                    // if trim of v not empty
+                    if (v.Trim() != "")
+                    {
+                        // add to values    
+                        values += '"' + v + '"' + ",";
+                    }
+                }
+            }
+
+            // if values not empty
+            if (values.Trim() != "[")
+            {
+                // remove last ,
+                values = values.Substring(0, values.Length - 1);
+            }
+
+            values += "]";
+
+            // return
+            return values;
+        }
+        
         // get select comboBox
         public void getSelect(ComboBox cb, string data)
         {

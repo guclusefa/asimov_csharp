@@ -35,9 +35,8 @@ namespace asimov
             methods.initClasses(cb_classes, data["lesClasses"]);
             methods.initProfsPrincipal(cb_pp, data["lesProfs"]);
 
-            // remplir eleves et matieres
+            // remplir matieres
             methods.addLesMatieres(panel_matieres, data["lesMatieres"], data["lesProfs"]);
-            methods.addLesEleves(panel_eleves, data["lesEleves"]);
 
             // si modifier
             if (modifier == 1)
@@ -49,11 +48,46 @@ namespace asimov
 
                 // les values
                 data = methods.getRequest("/classes/modifier/" + id);
+            } else
+            {
+                // on ajoute 1 cb eleve
+                methods.addLesEleves(panel_eleves, data["lesEleves"]);
             }
         }
 
         private void btn_valider_Click(object sender, EventArgs e)
         {
+            // les params
+            string url;
+            string[] lesParams = {
+                    "annee", dtp_annee.Text,
+                    "libelle", tb_libelle.Text,
+                    "classe", (cb_classes.SelectedItem as dynamic).Value.ToString(),
+                    "principal", (cb_pp.SelectedItem as dynamic).Value.ToString(),
+                    "eleves", methods.getValuesComboBox(panel_eleves),
+                    "profs", methods.getValuesComboBox(panel_matieres)
+            };
+
+            // si pour ajouter sinon pour ajouter
+            if (modifier == 0)
+            {
+                // les params ajouter
+                url = "/classes/ajouter";
+            }
+            else
+            {
+                // les params modifier
+                url = "/classes/modifier/" + id;
+
+                // add to lesParams
+                lesParams = lesParams.Concat(new string[] { "id", id }).ToArray();
+            }
+            
+            // json
+            string json = methods.generateJson(lesParams);
+
+            //requete ajouter
+            methods.validate(url, json, this);
         }
 
         private void btn_ajouterEleve_Click(object sender, EventArgs e)
