@@ -69,6 +69,18 @@ namespace asimov
             }
         }
 
+        // ajouter eleve
+        private void btn_ajouterEleve_Click(object sender, EventArgs e)
+        {
+            methods.addLesEleves(panel_eleves, data["lesEleves"], null);
+        }
+
+        // supprimer eleve
+        private void btn_supprimerEleve_Click(object sender, EventArgs e)
+        {
+            methods.deleteComboBox(panel_eleves);
+        }
+
         private void btn_valider_Click(object sender, EventArgs e)
         {
             // les params
@@ -102,16 +114,6 @@ namespace asimov
 
             //requete ajouter
             methods.validate(url, json, this);
-        }
-
-        private void btn_ajouterEleve_Click(object sender, EventArgs e)
-        {
-            methods.addLesEleves(panel_eleves, data["lesEleves"], null);
-        }
-
-        private void btn_supprimerEleve_Click(object sender, EventArgs e)
-        {
-            methods.deleteComboBox(panel_eleves);
         }
     }
 }

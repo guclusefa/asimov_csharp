@@ -249,6 +249,26 @@ namespace asimov
                     dgv.Rows.Add(item["cursus_id"], item["cursus_anneeScolaire"], item["classe_libelle"], item["cursus_libelle"], item["user_nom"] + " " + item["user_prenom"]);
                 }
             }
+
+            // si classes
+            if (type == "EVA")
+            {
+                // ajout des colonnes
+                dgv.Columns.Add("id", "#");
+                dgv.Columns.Add("annee", "Année Sscolaire");
+                dgv.Columns.Add("cursus", "Cursus");
+                dgv.Columns.Add("prof", "Professeur");
+                dgv.Columns.Add("matiere", "Matière");
+                dgv.Columns.Add("desc", "Desc");
+                dgv.Columns.Add("date", "Date");
+                dgv.Columns.Add("trimestre", "Trimestre");
+                
+                // affichage des data dans le tableau
+                foreach (var item in data["lesEvaluations"])
+                {
+                    dgv.Rows.Add(item["eval_id"], item["cursus_anneeScolaire"], item["classe_libelle"] + " " + item["cursus_libelle"], item["user_nom"] + " " + item["user_prenom"], item["matiere_libelle"], item["eval_desc"], item["eval_date"], item["eval_trimestre"]);
+                }
+            }
         }
 
 
@@ -331,9 +351,6 @@ namespace asimov
                 detail += "\nLibellé : " + data["uneClasse"]["cursus_libelle"].ToString();
                 detail += "\nProfesseur principal : " + data["uneClasse"]["user_nom"].ToString() + " " + data["uneClasse"]["user_prenom"].ToString();
 
-                // count lesElevesClasse
-                detail += "\n\nLes élèves : " + countArray(data["lesElevesClasse"]);
-
                 // les eleves
                 foreach (var item in data["lesElevesClasse"])
                 {
@@ -351,6 +368,37 @@ namespace asimov
 
             }
 
+
+            // si classe
+            if (type == "EVA")
+            {
+                // les détails
+                detail = "id : " + data["uneEval"]["eval_id"].ToString();
+                detail += "\nAnnée Scolaire : " + data["uneEval"]["cursus_anneeScolaire"].ToString();
+                detail += "\nClasse : " + data["uneEval"]["classe_libelle"].ToString() + " " + data["uneEval"]["cursus_libelle"].ToString();
+                detail += "\nProfesseur : " + data["uneEval"]["user_nom"].ToString() + " " + data["uneEval"]["user_prenom"].ToString();
+                detail += "\nMatière : " + data["uneEval"]["matiere_libelle"].ToString();
+                detail += "\nDescription : " + data["uneEval"]["eval_desc"].ToString();
+                detail += "\nDate : " + data["uneEval"]["eval_date"].ToString();
+                detail += "\nTrimestre : " + data["uneEval"]["eval_trimestre"].ToString();
+
+                // count les notes
+                detail += "\n\nLes notes : " + countArray(data["lesEleves"]);
+
+                // les notes
+                foreach (var item in data["lesEleves"])
+                {
+                    detail += "\n" + item["user_nom"].ToString() + " " + item["user_prenom"].ToString() + " : " + checkNotes(item["note_valeur"], "Absent");
+                }
+
+
+                // bilan
+                detail += "\n\nBilan : ";
+                detail += "\nMoyenne : " + checkNotes(data["moy"], "A definir"); ;
+                detail += "\nMeilleur note : " + checkNotes(data["max"], "A definir"); ;
+                detail += "\nPire note  : " + checkNotes(data["min"], "A definir"); ;
+            }
+ 
             // retourner detail
             return detail;
         }
@@ -410,6 +458,13 @@ namespace asimov
             if (type == "CLA")
             {
                 FormClasse form = new FormClasse(0, "0");
+                form.ShowDialog();
+            }
+
+            // si évalutation
+            if (type == "EVA")
+            {
+                FormEval form = new FormEval(0, "0");
                 form.ShowDialog();
             }
         }
@@ -478,6 +533,13 @@ namespace asimov
             if (type == "CLA")
             {
                 FormClasse form = new FormClasse(1, row.Cells["id"].Value.ToString());
+                form.ShowDialog();
+            }
+
+            // si évaluations
+            if (type == "EVA")
+            {
+                FormEval form = new FormEval(1, row.Cells["id"].Value.ToString());
                 form.ShowDialog();
             }
 
@@ -789,6 +851,89 @@ namespace asimov
                 i++;
         }
 
+        // add les eleves notes
+        public void addLesElevesNotes(Panel p, JToken data, JToken dataASelect, JToken dataNote)
+        {
+            // init
+            int i = 0;
+            int x = 10;
+            int y = 10;
+            // width
+            int w = 337;
+            // height
+            int h = 30;
+            // font
+            Font font = new Font("Segoe UI", 12);
+            // drop down style
+            ComboBoxStyle style = ComboBoxStyle.DropDownList;
+            //width 
+            int dropDownWidth = 200;
+            // height
+            int dropDownHeight = 337;
+            // margin bottom
+            int marginBottom = 20;
+
+            // init
+            ComboBox cb = new ComboBox();
+            cb.Name = "cb_eleve" + i.ToString();
+            cb.Location = new Point(x, y);
+            cb.Font = font;
+            cb.DropDownStyle = style;
+            cb.DropDownWidth = dropDownWidth;
+            cb.DropDownHeight = dropDownHeight;
+            // width
+            cb.Width = w;
+            // height
+            cb.Height = h;
+            // margin bottom
+            cb.Margin = new Padding(0, 0, 0, marginBottom);
+            // full width
+            cb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
+            // add to form
+            p.Controls.Add(cb);
+
+            // disable
+            cb.Enabled = false;
+
+            // init combobox
+            initEleves(cb, data, dataASelect);
+
+            // add text box to end of panel
+            Font font2 = new Font("Segoe UI", 13);
+            TextBox tb = new TextBox();
+            tb.Name = "tb_note" + i.ToString();
+            tb.Font = font2;
+            tb.Width = 250;
+            tb.Height = h;
+            // placeholder text
+            tb.PlaceholderText = "Note sur 100 en %";
+            // margin bottom
+            tb.Margin = new Padding(55, 0, 0, marginBottom);
+
+            // if data note not null
+            if (dataNote != null)
+            {
+                tb.Text = dataNote.ToString();
+            }
+
+            // add to form
+            p.Controls.Add(tb);
+
+            // add label next to text box
+            Label l = new Label();
+            l.Name = "l_note" + i.ToString();
+            l.Text = "%";
+            l.Font = font2;
+            l.Width = 50;
+            l.Height = h;
+            // margin bottom
+            l.Margin = new Padding(0, 0, 0, marginBottom);
+
+            p.Controls.Add(l);
+
+        }
+
         // init les eleves
         public void initEleves(ComboBox cb, JToken data, JToken dataASelect)
         {
@@ -815,6 +960,96 @@ namespace asimov
                 // selection 1er
                 cb.SelectedIndex = 0;
             }
+        }
+
+        // init cursus
+        public void initCursus(ComboBox cb, JToken data, JToken dataASelect)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir une classe", Value = "" });
+
+            // for each data
+            foreach (var item in data)
+            {
+                cb.Items.Add(new { Text = item["classe_libelle"] + " " + item["cursus_libelle"].ToString() + " (" + item["cursus_anneeScolaire"].ToString() + ")", Value = item["cursus_id"].ToString() });
+            }
+
+            // if dataaselect
+            if (dataASelect != null)
+            {
+                string v = dataASelect.ToString();
+                getSelect(cb, v);
+            }
+            else
+            {
+                // selection 1er
+                cb.SelectedIndex = 0;
+            }
+        }
+
+        // init cursus
+        public void initMatieres(ComboBox cb, string idCursus, JToken data, JToken dataASelect)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir une matière", Value = "" });
+
+            // for each data
+            foreach (var item in data)
+            {
+                if (item["cursus_prof_idCursus"].ToString() == idCursus)
+                {
+                    cb.Items.Add(new { Text = item["matiere_libelle"] + " (Prof. " + item["user_prenom"].ToString() + " " + item["user_nom"] + ")", Value = item["matiere_id"].ToString() });
+                }
+            }
+
+            // if dataaselect
+            if (dataASelect != null)
+            {
+                string v = dataASelect.ToString();
+                getSelect(cb, v);
+            }
+            else
+            {
+                // selection 1er
+                cb.SelectedIndex = 0;
+            }
+        }
+
+        // init trimestres
+        public void initTrimestres(ComboBox cb)
+        {
+            // init sexe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un trimestre", Value = "" });
+            cb.Items.Add(new { Text = "Trimestre 1", Value = "1" });
+            cb.Items.Add(new { Text = "Trimestre 2", Value = "2" });
+            cb.Items.Add(new { Text = "Trimestre 3", Value = "3" });
+            cb.SelectedIndex = 0;
+        }
+
+        // empty matieres
+        public void emptyMatieres(ComboBox cb)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir une matière", Value = "" });
+
+            // selection 1er
+            cb.SelectedIndex = 0;
         }
 
         // delete combo box
@@ -873,6 +1108,39 @@ namespace asimov
             return values;
         }
 
+        // get values of all text box of panel
+        public string getValuesTextBox(Panel p)
+        {
+            // init
+            string values = "[";
+            // for each control
+            foreach (Control c in p.Controls)
+            {
+                // if textbox
+                if (c is TextBox)
+                {
+                    // c as textbox
+                    TextBox tb = (TextBox)c;
+                    string v = tb.Text;
+                     // add to values    
+                    values += '"' + v + '"' + ",";
+                }
+            }
+
+            // if values not empty
+            if (values.Trim() != "[")
+            {
+                // remove last ,
+                values = values.Substring(0, values.Length - 1);
+            }
+
+            values += "]";
+
+            // return
+            return values;
+        }
+
+
         // generate date time from yyyy
         public string generateDateTime(string yyyy)
         {
@@ -915,6 +1183,20 @@ namespace asimov
                 i++;
             }
             return i;
+        }
+
+        // check if null or msg
+        public string checkNotes(JToken data, string msgNull)
+        {
+            if (data != null && data.ToString().Length != 0)
+            {
+                return data.ToString() + "%";
+            }
+            else
+            {
+                // else return msg
+                return msgNull;
+            }
         }
     }
 }

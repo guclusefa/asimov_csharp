@@ -25,6 +25,14 @@ namespace asimov
             label_nomUser.Text = data["user_info"]["user_prenom"].ToString() + " " + data["user_info"]["user_nom"].ToString();
         }
 
+        // les évaluations
+        private void btn_evaluations_Click(object sender, EventArgs e)
+        {
+            // ouvrir évaluations
+            Liste form = new Liste("Les évaluations", "/evaluations", "EVA");
+            methods.openForm("/evaluations/liste", this, form);
+        }
+
         // les classes
         private void btn_classes_Click(object sender, EventArgs e)
         {
