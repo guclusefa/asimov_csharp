@@ -35,9 +35,6 @@ namespace asimov
             methods.initClasses(cb_classes, data["lesClasses"]);
             methods.initProfsPrincipal(cb_pp, data["lesProfs"]);
 
-            // remplir matieres
-            methods.addLesMatieres(panel_matieres, data["lesMatieres"], data["lesProfs"]);
-
             // si modifier
             if (modifier == 1)
             {
@@ -53,19 +50,22 @@ namespace asimov
                 tb_libelle.Text = data["uneClasse"]["cursus_libelle"].ToString();
                 dtp_annee.Value = DateTime.Parse(methods.generateDateTime(data["uneClasse"]["cursus_anneeScolaire"].ToString()));
 
+                methods.addLesMatieres(panel_matieres, data["lesMatieres"], data["lesProfs"], data["lesProfsClasse"]);
                 methods.getSelect(cb_classes, data["uneClasse"]["classe_id"].ToString());
                 methods.getSelect(cb_pp, data["uneClasse"]["user_id"].ToString());
 
                 // on ajoute une cb pr tout les eleves
                 foreach (JObject eleve in data["lesElevesClasse"])
                 {
-                    methods.addLesEleves(panel_eleves, data["lesEleves"]);
+                    methods.addLesEleves(panel_eleves, data["lesEleves"], eleve["user_id"]);
                 }
             }
             else
             {
+                // remplir matieres
+                methods.addLesMatieres(panel_matieres, data["lesMatieres"], data["lesProfs"], null);
                 // on ajoute 1 cb eleve
-                methods.addLesEleves(panel_eleves, data["lesEleves"]);
+                methods.addLesEleves(panel_eleves, data["lesEleves"], null);
             }
         }
 
@@ -106,7 +106,7 @@ namespace asimov
 
         private void btn_ajouterEleve_Click(object sender, EventArgs e)
         {
-            methods.addLesEleves(panel_eleves, data["lesEleves"]);
+            methods.addLesEleves(panel_eleves, data["lesEleves"], null);
         }
 
         private void btn_supprimerEleve_Click(object sender, EventArgs e)

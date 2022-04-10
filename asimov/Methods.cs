@@ -644,7 +644,7 @@ namespace asimov
         }
 
         // add combo box to panel
-        public void addLesMatieres(Panel p, JToken data, JToken dataProfs)
+        public void addLesMatieres(Panel p, JToken data, JToken dataProfs, JToken dataProfASelect)
         {
             // init
             int i = 0;
@@ -688,7 +688,7 @@ namespace asimov
                 p.Controls.Add(cb);
 
                 // init combobox
-                initProfsMatieres(cb, item, dataProfs);
+                initProfsMatieres(cb, item, dataProfs, dataProfASelect);
 
                 // next
                 i++;
@@ -699,7 +699,7 @@ namespace asimov
         }
 
         // init combobox profs
-        public void initProfsMatieres(ComboBox cb, JToken data, JToken dataProfs)
+        public void initProfsMatieres(ComboBox cb, JToken data, JToken dataProfs, JToken dataProfASelect)
         {
             // init classe
             cb.DisplayMember = "Text";
@@ -714,12 +714,35 @@ namespace asimov
                 cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString()+", "+ data["matiere_id"].ToString() });
             }
 
-            // selection 1er
-            cb.SelectedIndex = 0;
+            // if dataprofaselcet
+            if (dataProfASelect != null)
+            {
+                // for each data
+                foreach (var item in dataProfASelect)
+                {
+                    // if data prof
+                    if (item["matiere_id"].ToString() == data["matiere_id"].ToString())
+                    {
+                        // select
+                        string v = item["user_id"].ToString() + ", " + data["matiere_id"].ToString();
+                        getSelect(cb, v);
+                    }
+                }
+                
+            }
+            // for each conbo box if noting selected selecte 0
+            foreach (ComboBox c in cb.Parent.Controls.OfType<ComboBox>())
+            {
+                if (c.SelectedIndex == -1)
+                {
+                    c.SelectedIndex = 0;
+                }
+            }
+
         }
 
         // add combo box to panel
-        public void addLesEleves(Panel p, JToken data)
+        public void addLesEleves(Panel p, JToken data, JToken dataASelect)
         {
             // init
             int i = 0;
@@ -760,10 +783,38 @@ namespace asimov
                 p.Controls.Add(cb);
 
                 // init combobox
-                initEleves(cb, data);
+                initEleves(cb, data, dataASelect);
 
                 // next
                 i++;
+        }
+
+        // init les eleves
+        public void initEleves(ComboBox cb, JToken data, JToken dataASelect)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un élève", Value = "" });
+
+            // for each data
+            foreach (var item in data)
+            {
+                cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString() });
+            }
+
+            // if dataaselect
+            if (dataASelect != null)
+            {
+                string v = dataASelect.ToString();
+                getSelect(cb, v);
+            } else
+            {
+                // selection 1er
+                cb.SelectedIndex = 0;
+            }
         }
 
         // delete combo box
@@ -784,28 +835,6 @@ namespace asimov
                 }
             }
         }
-
-
-        // init les eleves
-        public void initEleves(ComboBox cb, JToken data)
-        {
-            // init classe
-            cb.DisplayMember = "Text";
-            cb.ValueMember = "Value";
-
-            cb.Items.Clear();
-            cb.Items.Add(new { Text = "Choisir un élève", Value = "" });
-
-            // for each data
-            foreach (var item in data)
-            {
-                cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString() });
-            }
-
-            // selection 1er
-            cb.SelectedIndex = 0;
-        }
-
 
         // get values of all combo boxes of panel
         public string getValuesComboBox(Panel p)
