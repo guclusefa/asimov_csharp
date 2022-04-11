@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,8 +16,8 @@ namespace asimov
         public NoteItem(string libelleMatiere, string moyMatiere, string bilanMatiere)
         {
             InitializeComponent();
-            // add margin bottom 20px
-            this.Margin = new Padding(0, 0, 0, 20);
+            // margin bottom 0
+            this.Margin = new Padding(0, 0, 0, 0);
 
             // les values
             label1.Text = libelleMatiere;

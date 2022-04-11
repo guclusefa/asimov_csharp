@@ -50,7 +50,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(342, 45);
+            this.label1.Size = new System.Drawing.Size(426, 54);
             this.label1.TabIndex = 2;
             this.label1.Text = "Ajouter une évaluation";
             // 
@@ -60,7 +60,7 @@
             this.label2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label2.Location = new System.Drawing.Point(15, 67);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 21);
+            this.label2.Size = new System.Drawing.Size(65, 28);
             this.label2.TabIndex = 4;
             this.label2.Text = "Classe";
             // 
@@ -70,7 +70,7 @@
             this.label3.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label3.Location = new System.Drawing.Point(358, 67);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(63, 21);
+            this.label3.Size = new System.Drawing.Size(79, 28);
             this.label3.TabIndex = 6;
             this.label3.Text = "Matière";
             // 
@@ -80,7 +80,7 @@
             this.label4.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label4.Location = new System.Drawing.Point(15, 138);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(89, 21);
+            this.label4.Size = new System.Drawing.Size(112, 28);
             this.label4.TabIndex = 8;
             this.label4.Text = "Déscription";
             // 
@@ -104,7 +104,7 @@
             ""});
             this.cb_classes.Location = new System.Drawing.Point(20, 89);
             this.cb_classes.Name = "cb_classes";
-            this.cb_classes.Size = new System.Drawing.Size(295, 29);
+            this.cb_classes.Size = new System.Drawing.Size(295, 36);
             this.cb_classes.TabIndex = 1;
             this.cb_classes.SelectionChangeCommitted += new System.EventHandler(this.cb_classes_SelectedIndexChanged);
             // 
@@ -114,7 +114,7 @@
             this.tb_desc.Location = new System.Drawing.Point(20, 162);
             this.tb_desc.Name = "tb_desc";
             this.tb_desc.PlaceholderText = "Déscription";
-            this.tb_desc.Size = new System.Drawing.Size(638, 31);
+            this.tb_desc.Size = new System.Drawing.Size(638, 36);
             this.tb_desc.TabIndex = 3;
             // 
             // label8
@@ -123,7 +123,7 @@
             this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(15, 208);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(75, 21);
+            this.label8.Size = new System.Drawing.Size(91, 28);
             this.label8.TabIndex = 24;
             this.label8.Text = "Trimestre";
             // 
@@ -133,7 +133,7 @@
             this.label7.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label7.Location = new System.Drawing.Point(358, 208);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(80, 21);
+            this.label7.Size = new System.Drawing.Size(97, 28);
             this.label7.TabIndex = 14;
             this.label7.Text = "Les élèves";
             // 
@@ -146,7 +146,7 @@
             ""});
             this.cb_trimestre.Location = new System.Drawing.Point(20, 232);
             this.cb_trimestre.Name = "cb_trimestre";
-            this.cb_trimestre.Size = new System.Drawing.Size(295, 29);
+            this.cb_trimestre.Size = new System.Drawing.Size(295, 36);
             this.cb_trimestre.TabIndex = 4;
             // 
             // dtp_date
@@ -156,7 +156,7 @@
             this.dtp_date.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtp_date.Location = new System.Drawing.Point(363, 232);
             this.dtp_date.Name = "dtp_date";
-            this.dtp_date.Size = new System.Drawing.Size(295, 31);
+            this.dtp_date.Size = new System.Drawing.Size(295, 36);
             this.dtp_date.TabIndex = 5;
             // 
             // cb_matieres
@@ -168,7 +168,7 @@
             ""});
             this.cb_matieres.Location = new System.Drawing.Point(363, 89);
             this.cb_matieres.Name = "cb_matieres";
-            this.cb_matieres.Size = new System.Drawing.Size(295, 29);
+            this.cb_matieres.Size = new System.Drawing.Size(295, 36);
             this.cb_matieres.TabIndex = 2;
             // 
             // label6
@@ -177,7 +177,7 @@
             this.label6.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label6.Location = new System.Drawing.Point(15, 280);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(0, 21);
+            this.label6.Size = new System.Drawing.Size(0, 28);
             this.label6.TabIndex = 26;
             // 
             // panel_notes
@@ -191,7 +191,8 @@
             // 
             // FormEval
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(697, 604);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.panel_notes);

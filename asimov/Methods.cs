@@ -1187,7 +1187,7 @@ namespace asimov
         // check if null or msg
         public string checkNotes(JToken data, string msgNull)
         {
-            if (data != null && data.ToString().Length != 0)
+            if (data != null && data.ToString().Length != 0 && data.Type != JTokenType.Undefined)
             {
                 return data.ToString() + "%";
             }
