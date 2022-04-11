@@ -19,6 +19,9 @@
     <Compile Update="FormClasse.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Notes.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>

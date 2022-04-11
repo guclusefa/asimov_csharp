@@ -59,6 +59,7 @@
             this.btn_notes.TabIndex = 4;
             this.btn_notes.Text = "Les notes";
             this.btn_notes.UseVisualStyleBackColor = true;
+            this.btn_notes.Click += new System.EventHandler(this.btn_notes_Click);
             // 
             // btn_evaluations
             // 

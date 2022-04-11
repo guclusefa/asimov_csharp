@@ -25,6 +25,14 @@ namespace asimov
             label_nomUser.Text = data["user_info"]["user_prenom"].ToString() + " " + data["user_info"]["user_nom"].ToString();
         }
 
+        // les notes
+        private void btn_notes_Click(object sender, EventArgs e)
+        {
+            // ouvrir notes
+            Notes form = new Notes();
+            methods.openForm("/notes/fiche_eleve/0/0", this, form);
+        }
+
         // les évaluations
         private void btn_evaluations_Click(object sender, EventArgs e)
         {
