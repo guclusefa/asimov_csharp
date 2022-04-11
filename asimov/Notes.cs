@@ -99,10 +99,10 @@ namespace asimov
                         // if item not defined
                         if (item["bilanT1"].Count() > 0)
                         {
-                            moyEleve = item["bilanT1"]["eleve_avg"].ToString();
-                            moyClasse = item["bilanT1"]["classe_avg"].ToString();
-                            max = item["bilanT1"]["classe_max"].ToString();
-                            min = item["bilanT1"]["classe_min"].ToString();
+                            moyEleve = item["bilanT1"]["eleve_avg"].ToString() + "%";
+                            moyClasse = item["bilanT1"]["classe_avg"].ToString() + "%";
+                            max = item["bilanT1"]["classe_max"].ToString() + "%";
+                            min = item["bilanT1"]["classe_min"].ToString() + "%";
                         }
                         else
                         {
