@@ -351,6 +351,7 @@ namespace asimov
                 detail += "\nLibellé : " + data["uneClasse"]["cursus_libelle"].ToString();
                 detail += "\nProfesseur principal : " + data["uneClasse"]["user_nom"].ToString() + " " + data["uneClasse"]["user_prenom"].ToString();
 
+                detail += "\n\nLes élèves : " + countArray(data["lesElevesClasse"]);
                 // les eleves
                 foreach (var item in data["lesElevesClasse"])
                 {
