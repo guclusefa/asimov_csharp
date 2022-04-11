@@ -77,6 +77,25 @@ namespace asimov
             {
                 // récup data
                 var data = methods.getRequest("/notes/fiche_eleve/" + (cb_eleve.SelectedItem as dynamic).Value.ToString() + "/" + (cb_classe.SelectedItem as dynamic).Value.ToString());
+                MessageBox.Show(data["lesMatieres"].ToString());
+
+                // for each les matieres
+                foreach(JObject item in data["lesMatieres"]) {
+ 
+                    // t1
+                    if (item["notesT1"].Count() > 0)
+                    {
+                        string libelle = item["matiere_libelle"].ToString();
+                        string moyEleve = methods.checkNotes(item["bilanT1"]["eleve_avg"].ToString(), "A definir");
+                        string moyClasse = methods.checkNotes(item["bilanT1"]["classe_avg"].ToString(), "A definir");
+                        string max = methods.checkNotes(item["bilanT1"]["classe_max"].ToString(), "A definir");
+                        string min = methods.checkNotes(item["bilanT1"]["classe_min"].ToString(), "A definir");
+                        string bilanMatiere;
+
+                        NoteItem ni = new NoteItem(libelle, moyEleve);
+                        panel_notesT1.Controls.Add(ni);
+                    }
+                }
 
                 // show tab control
                 tc_notes.Visible = true;

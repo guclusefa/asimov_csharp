@@ -859,7 +859,7 @@ namespace asimov
             int x = 10;
             int y = 10;
             // width
-            int w = 337;
+            int w = 295;
             // height
             int h = 30;
             // font
@@ -887,8 +887,7 @@ namespace asimov
             cb.Height = h;
             // margin bottom
             cb.Margin = new Padding(0, 0, 0, marginBottom);
-            // full width
-            cb.Anchor = AnchorStyles.Left | AnchorStyles.Right;
+
 
             // add to form
             p.Controls.Add(cb);
@@ -904,12 +903,12 @@ namespace asimov
             TextBox tb = new TextBox();
             tb.Name = "tb_note" + i.ToString();
             tb.Font = font2;
-            tb.Width = 250;
+            tb.Width = 260;
             tb.Height = h;
             // placeholder text
             tb.PlaceholderText = "Note sur 100 en %";
             // margin bottom
-            tb.Margin = new Padding(55, 0, 0, marginBottom);
+            tb.Margin = new Padding(50, 0, 0, marginBottom);
 
             // if data note not null
             if (dataNote != null)
@@ -925,7 +924,7 @@ namespace asimov
             l.Name = "l_note" + i.ToString();
             l.Text = "%";
             l.Font = font2;
-            l.Width = 50;
+            l.Width = 30;
             l.Height = h;
             // margin bottom
             l.Margin = new Padding(0, 0, 0, marginBottom);
