@@ -76,8 +76,6 @@ namespace asimov
             panel_notesT1.Controls.Clear();
             panel_notesT2.Controls.Clear();
             panel_notesT3.Controls.Clear();
-            panel_notesT4.Controls.Clear();
-
 
             // if index not 0
             if (cb_classe.SelectedIndex != 0)
@@ -85,66 +83,11 @@ namespace asimov
                 // récup data
                 var data = methods.getRequest("/notes/fiche_eleve/" + (cb_eleve.SelectedItem as dynamic).Value.ToString() + "/" + (cb_classe.SelectedItem as dynamic).Value.ToString());
 
-                // for each les matieres
-                foreach (JObject item in data["lesMatieres"]) {
- 
-                    // t1
-                    if (item["notesT1"].Count() > 0)
-                    {                        
-                        string libelle = item["matiere_libelle"].ToString();
-                        string moyEleve;
-                        string moyClasse;
-                        string max;
-                        string min;
-                        // if item not defined
-                        if (item["bilanT1"].Count() > 0)
-                        {
-                            moyEleve = item["bilanT1"]["eleve_avg"].ToString() + "%";
-                            moyClasse = item["bilanT1"]["classe_avg"].ToString() + "%";
-                            max = item["bilanT1"]["classe_max"].ToString() + "%";
-                            min = item["bilanT1"]["classe_min"].ToString() + "%";
-                        }
-                        else
-                        {
-                            moyEleve = "A definir";
-                            moyClasse = "A definir";
-                            min = "A definir";
-                            max = "A definir";
-                        }
-                        string bilanMatiere = $"Moy: {moyClasse} Min: {min} Max: {max}";
-
-                        NoteItem ni = new NoteItem(libelle, moyEleve, bilanMatiere);
-                        panel_notesT1.Controls.Add(ni);
-                        
-                        // les evals
-                        foreach (JToken eval in item["notesT1"])
-                        {
-                            string libelleEval = eval["eval_date"].ToString() + " : " + eval["eval_desc"].ToString();
-                            string moyEval = methods.checkNotes(eval["note_valeur"].ToString(), "Absent");
-                            string moyEvalClasse = methods.checkNotes(eval["eval_avg"].ToString(), "A definir");
-                            string minEvalClasse = methods.checkNotes(eval["eval_min"].ToString(), "A definir");
-                            string maxEvalClasse = methods.checkNotes(eval["eval_max"].ToString(), "A definir");
-
-                            string bilanEval = $"Moy: {moyEvalClasse} Min: {minEvalClasse} Max: {maxEvalClasse}";
-                            NoteItemEval ni2 = new NoteItemEval(libelleEval, moyEval, bilanEval);
-                            panel_notesT1.Controls.Add(ni2);
-
-                            // if last add margin bottom
-                            if (item["notesT1"].Last() == eval)
-                            {
-                                ni2.Margin = new Padding(0, 0, 0, 20);
-                            }
-                        }
-
-                        // bilan
-                        l_moyenneEleveT1.Text = methods.checkNotes(data["bilanClasseT1"][0].ToString(), "A definir");
-                        l_moyenneClasseT1.Text = methods.checkNotes(data["bilanClasseT1"][1].ToString(), "A definir");
-                    } else
-                    {
-                        MessageBox.Show("aucune note pour cette matiere");
-                    }
-                }
-
+                // show notes par trimestre
+                methods.showNotes(data, "T1", panel_notesT1, l_moyenneEleveT1, l_moyenneClasseT1, label_moyET1, label_moyCT1, btn_grapheT1);
+                methods.showNotes(data, "T2", panel_notesT2, l_moyenneEleveT2, l_moyenneClasseT2, label_moyET2, label_moyCT2, btn_grapheT2);
+                methods.showNotes(data, "T3", panel_notesT3, l_moyenneEleveT3, l_moyenneClasseT3, label_moyET3, label_moyCT3, btn_grapheT3);
+                
                 // show tab control
                 tc_notes.Visible = true;
             }

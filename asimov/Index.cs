@@ -23,6 +23,33 @@ namespace asimov
             // recuperer data user
             var data = methods.getRequest("/");
             label_nomUser.Text = data["user_info"]["user_prenom"].ToString() + " " + data["user_info"]["user_nom"].ToString();
+            // if user info is responsable
+            if (data["user_info"]["user_isProviseur"].ToString() == "1")
+            {
+                label_statutUser.Text = "Proviseur";
+            }
+            else if (data["user_info"]["user_isAdministration"].ToString() == "1")
+            {
+                label_statutUser.Text = "Administration";
+                btn_notes.Visible = false;
+                btn_evaluations.Visible = false;
+                
+            } else if (data["user_info"]["user_isProf"].ToString() == "1")
+            {
+                label_statutUser.Text = "Professeur";
+                btn_notes.Visible = false;
+                btn_profs.Visible = false;
+                btn_eleves.Visible = false;
+                btn_matieres.Visible = false;
+            } else
+            {
+                label_statutUser.Text = "Élève";
+                btn_evaluations.Visible = false;
+                btn_classes.Visible = false;
+                btn_profs.Visible = false;
+                btn_eleves.Visible = false;
+                btn_matieres.Visible = false;
+            }
         }
 
         // les notes

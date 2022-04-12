@@ -47,19 +47,20 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(4, 9);
+            this.label1.Location = new System.Drawing.Point(5, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(84, 45);
+            this.label1.Size = new System.Drawing.Size(103, 54);
             this.label1.TabIndex = 0;
             this.label1.Text = "Titre";
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Location = new System.Drawing.Point(12, 57);
+            this.tabControl1.Location = new System.Drawing.Point(14, 76);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(860, 468);
+            this.tabControl1.Size = new System.Drawing.Size(983, 624);
             this.tabControl1.TabIndex = 1;
             // 
             // tabPage1
@@ -71,10 +72,11 @@
             this.tabPage1.Controls.Add(this.btn_supprimer);
             this.tabPage1.Controls.Add(this.btn_modifier);
             this.tabPage1.Controls.Add(this.dgv_liste);
-            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(852, 440);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tabPage1.Size = new System.Drawing.Size(975, 591);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Liste";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -82,19 +84,19 @@
             // tb_chercher
             // 
             this.tb_chercher.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tb_chercher.Location = new System.Drawing.Point(395, 404);
-            this.tb_chercher.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tb_chercher.Location = new System.Drawing.Point(451, 539);
             this.tb_chercher.Name = "tb_chercher";
             this.tb_chercher.PlaceholderText = "Rechercher...";
-            this.tb_chercher.Size = new System.Drawing.Size(452, 32);
+            this.tb_chercher.Size = new System.Drawing.Size(516, 39);
             this.tb_chercher.TabIndex = 7;
             this.tb_chercher.TextChanged += new System.EventHandler(this.tb_chercher_TextChanged);
             // 
             // btn_detail
             // 
-            this.btn_detail.Location = new System.Drawing.Point(6, 404);
+            this.btn_detail.Location = new System.Drawing.Point(7, 539);
+            this.btn_detail.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_detail.Name = "btn_detail";
-            this.btn_detail.Size = new System.Drawing.Size(75, 29);
+            this.btn_detail.Size = new System.Drawing.Size(86, 39);
             this.btn_detail.TabIndex = 3;
             this.btn_detail.Text = "Détail";
             this.btn_detail.UseVisualStyleBackColor = true;
@@ -102,9 +104,10 @@
             // 
             // btn_ajouter
             // 
-            this.btn_ajouter.Location = new System.Drawing.Point(87, 404);
+            this.btn_ajouter.Location = new System.Drawing.Point(99, 539);
+            this.btn_ajouter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_ajouter.Name = "btn_ajouter";
-            this.btn_ajouter.Size = new System.Drawing.Size(75, 29);
+            this.btn_ajouter.Size = new System.Drawing.Size(86, 39);
             this.btn_ajouter.TabIndex = 4;
             this.btn_ajouter.Text = "Ajouter";
             this.btn_ajouter.UseVisualStyleBackColor = true;
@@ -112,9 +115,10 @@
             // 
             // btn_supprimer
             // 
-            this.btn_supprimer.Location = new System.Drawing.Point(248, 404);
+            this.btn_supprimer.Location = new System.Drawing.Point(283, 539);
+            this.btn_supprimer.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_supprimer.Name = "btn_supprimer";
-            this.btn_supprimer.Size = new System.Drawing.Size(75, 29);
+            this.btn_supprimer.Size = new System.Drawing.Size(86, 39);
             this.btn_supprimer.TabIndex = 6;
             this.btn_supprimer.Text = "Supprimer";
             this.btn_supprimer.UseVisualStyleBackColor = true;
@@ -122,9 +126,10 @@
             // 
             // btn_modifier
             // 
-            this.btn_modifier.Location = new System.Drawing.Point(167, 404);
+            this.btn_modifier.Location = new System.Drawing.Point(191, 539);
+            this.btn_modifier.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_modifier.Name = "btn_modifier";
-            this.btn_modifier.Size = new System.Drawing.Size(75, 29);
+            this.btn_modifier.Size = new System.Drawing.Size(86, 39);
             this.btn_modifier.TabIndex = 5;
             this.btn_modifier.Text = "Modifier";
             this.btn_modifier.UseVisualStyleBackColor = true;
@@ -138,19 +143,21 @@
             this.dgv_liste.BackgroundColor = System.Drawing.SystemColors.ControlLight;
             this.dgv_liste.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv_liste.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_liste.Location = new System.Drawing.Point(6, 6);
+            this.dgv_liste.Location = new System.Drawing.Point(7, 8);
+            this.dgv_liste.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.dgv_liste.Name = "dgv_liste";
             this.dgv_liste.ReadOnly = true;
             this.dgv_liste.RowHeadersWidth = 51;
             this.dgv_liste.RowTemplate.Height = 25;
-            this.dgv_liste.Size = new System.Drawing.Size(840, 389);
+            this.dgv_liste.Size = new System.Drawing.Size(960, 519);
             this.dgv_liste.TabIndex = 2;
             // 
             // btn_quitter
             // 
-            this.btn_quitter.Location = new System.Drawing.Point(796, 527);
+            this.btn_quitter.Location = new System.Drawing.Point(910, 703);
+            this.btn_quitter.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_quitter.Name = "btn_quitter";
-            this.btn_quitter.Size = new System.Drawing.Size(75, 29);
+            this.btn_quitter.Size = new System.Drawing.Size(86, 39);
             this.btn_quitter.TabIndex = 8;
             this.btn_quitter.Text = "Quitter";
             this.btn_quitter.UseVisualStyleBackColor = true;
@@ -158,13 +165,14 @@
             // 
             // Liste
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(884, 561);
+            this.ClientSize = new System.Drawing.Size(1010, 748);
             this.Controls.Add(this.btn_quitter);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.Name = "Liste";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

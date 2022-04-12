@@ -12,7 +12,7 @@ namespace asimov
     internal class Methods
     {
         // host & cookie
-        public static string host = "http://localhost:8080";
+        public static string host = "http://asimov-api.alwaysdata.net";
         public static CookieContainer cookieContainer = new CookieContainer();
 
         // post request
@@ -228,9 +228,6 @@ namespace asimov
                 {
                     dgv.Rows.Add(item["user_id"], item["user_nom"] + " " + item["user_prenom"] + " (" + item["user_age"] + "ans)", item["user_sexe"], item["user_tel"], item["user_mail"]);
                 }
-
-                // hide id column
-                dgv.Columns["id"].Visible = false;
             }
 
             // si classes
@@ -269,6 +266,12 @@ namespace asimov
                     dgv.Rows.Add(item["eval_id"], item["cursus_anneeScolaire"], item["classe_libelle"] + " " + item["cursus_libelle"], item["user_nom"] + " " + item["user_prenom"], item["matiere_libelle"], item["eval_desc"], item["eval_date"], item["eval_trimestre"]);
                 }
             }
+
+            // hide first column
+            dgv.Columns["id"].Visible = false;
+            // new text box -> utilisé pour display aucun resultat si c le cas
+            TextBox tb = new TextBox();
+            searchDataGrid(dgv, tb);
         }
 
 
@@ -860,7 +863,7 @@ namespace asimov
             int x = 10;
             int y = 10;
             // width
-            int w = 295;
+            int w = 250;
             // height
             int h = 30;
             // font
@@ -904,7 +907,7 @@ namespace asimov
             TextBox tb = new TextBox();
             tb.Name = "tb_note" + i.ToString();
             tb.Font = font2;
-            tb.Width = 260;
+            tb.Width = 250;
             tb.Height = h;
             // placeholder text
             tb.PlaceholderText = "Note sur 100 en %";
@@ -914,6 +917,11 @@ namespace asimov
             // if data note not null
             if (dataNote != null)
             {
+                // if there is comma reome it
+                if (dataNote.ToString().Contains(","))
+                {
+                    dataNote = dataNote.ToString().Replace(",", ".");
+                }
                 tb.Text = dataNote.ToString();
             }
 
@@ -1190,12 +1198,118 @@ namespace asimov
         {
             if (data != null && data.ToString().Length != 0 && data.Type != JTokenType.Undefined)
             {
-                return data.ToString() + "%";
+                // return to index 2
+                // if data length more than 5
+                if (data.ToString().Length > 5)
+                {
+                    return data.ToString().Substring(0,5) + "%";
+                }
+                else
+                {
+                    return data.ToString() + "%";
+                }
             }
             else
             {
                 // else return msg
                 return msgNull;
+            }
+        }
+
+        // ###### NOTES ######
+        public void showNotes(JObject data, string trimestre, Panel p, Label l_moyenneEleve, Label l_moyenneClasse,
+            Label label_moyE, Label label_moyC, Button btn_graphe)
+        {
+            // if data not empty
+            if (data["bilanClasse"+ trimestre].Count() == 2)
+            {
+                // for each les matieres
+                foreach (JObject item in data["lesMatieres"])
+                {
+                    // t1
+                    if (item["notes"+trimestre].Count() > 0)
+                    {
+                        string libelle = item["matiere_libelle"].ToString();
+                        string moyEleve;
+                        string moyClasse;
+                        string max;
+                        string min;
+                        // if item not defined
+                        if (item["bilan"+trimestre].Count() > 0)
+                        {
+                            moyClasse = checkNotes(item["bilan" + trimestre]["classe_avg"].ToString(), "A definir");
+                            max = checkNotes(item["bilan" + trimestre]["classe_max"].ToString(), "A definir");
+                            min = checkNotes(item["bilan" + trimestre]["classe_min"].ToString(), "A definir");
+                            if (item["bilan" + trimestre].Count() > 3)
+                            {
+                                // if not null
+                                moyEleve = checkNotes(item["bilan" + trimestre]["eleve_avg"].ToString(), "A definir");
+                            }
+                            else { moyEleve = "A definir"; }
+                        }
+                        else
+                        {
+                            moyEleve = "A definir";
+                            moyClasse = "A definir";
+                            min = "A definir";
+                            max = "A definir";
+                        }
+                        string bilanMatiere = $"Moy: {moyClasse} Min: {min} Max: {max}";
+
+                        NoteItem ni = new NoteItem(libelle, moyEleve, bilanMatiere);
+                        p.Controls.Add(ni);
+
+                        // les evals
+                        foreach (JToken eval in item["notes" + trimestre])
+                        {
+                            string libelleEval = eval["eval_date"].ToString() + " : " + eval["eval_desc"].ToString();
+                            string moyEval = checkNotes(eval["note_valeur"].ToString(), "Absent");
+                            string moyEvalClasse = checkNotes(eval["eval_avg"].ToString(), "A definir");
+                            string minEvalClasse = checkNotes(eval["eval_min"].ToString(), "A definir");
+                            string maxEvalClasse = checkNotes(eval["eval_max"].ToString(), "A definir");
+
+                            string bilanEval = $"Moy: {moyEvalClasse} Min: {minEvalClasse} Max: {maxEvalClasse}";
+                            NoteItemEval ni2 = new NoteItemEval(libelleEval, moyEval, bilanEval);
+                            p.Controls.Add(ni2);
+
+                            // if last add margin bottom
+                            if (item["notes" + trimestre].Last() == eval)
+                            {
+                                ni2.Margin = new Padding(0, 0, 0, 20);
+                            }
+                        }
+
+                        // bilan
+                        l_moyenneEleve.Text = checkNotes(data["bilanClasse" + trimestre][0].ToString(), "A definir");
+                        l_moyenneClasse.Text = checkNotes(data["bilanClasse" + trimestre][1].ToString(), "A definir");
+                    }
+                }
+
+                // show all labels of tab pages
+                l_moyenneEleve.Visible = true;
+                l_moyenneClasse.Visible = true;
+                label_moyE.Visible = true;
+                label_moyC.Visible = true;
+                btn_graphe.Visible = true;
+            }
+            else
+            {
+                // hide all labels of tab pages
+                l_moyenneEleve.Visible = false;
+                l_moyenneClasse.Visible = false;
+                label_moyE.Visible = false;
+                label_moyC.Visible = false;
+                btn_graphe.Visible = false;
+
+                // new label in middle of tab page
+                Label l_empty = new Label();
+                l_empty.Text = "Aucune note pour ce trimestre";
+                // segou ui font 
+                l_empty.Font = new Font("Segou UI", 12, FontStyle.Bold);
+                // widh auto
+                l_empty.AutoSize = true;
+                p.Controls.Add(l_empty);
+
             }
         }
     }
