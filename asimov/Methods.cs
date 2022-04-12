@@ -863,7 +863,7 @@ namespace asimov
             int x = 10;
             int y = 10;
             // width
-            int w = 250;
+            int w = 200;
             // height
             int h = 30;
             // font
@@ -907,7 +907,7 @@ namespace asimov
             TextBox tb = new TextBox();
             tb.Name = "tb_note" + i.ToString();
             tb.Font = font2;
-            tb.Width = 250;
+            tb.Width = 200;
             tb.Height = h;
             // placeholder text
             tb.PlaceholderText = "Note sur 100 en %";
