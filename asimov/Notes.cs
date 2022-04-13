@@ -26,6 +26,16 @@ namespace asimov
 
             // init des cb
             methods.initEleves(cb_eleve, data["lesEleves"], null);
+
+            // if not proviseur
+            if (data["user_info"]["user_isProviseur"].ToString() == "0")
+            {
+                // select index 1 of cb
+                cb_eleve.SelectedIndex = 1;
+                cb_eleve_SelectedIndexChanged(null, null);
+                // disable cb eleve
+                cb_eleve.Enabled = false;
+            }
         }
 
         // les eleves
