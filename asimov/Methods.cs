@@ -1217,6 +1217,7 @@ namespace asimov
         }
 
         // ###### NOTES ######
+        // get notes par eleves et par classes
         public void showNotes(JObject data, string trimestre, Panel p, Label l_moyenneEleve, Label l_moyenneClasse,
             Label label_moyE, Label label_moyC, Button btn_graphe)
         {
