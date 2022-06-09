@@ -40,6 +40,7 @@
             this.label_nomUser = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label_statutUser = new System.Windows.Forms.Label();
+            this.btn_responsables = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -127,7 +128,7 @@
             // btn_deconnexion
             // 
             this.btn_deconnexion.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_deconnexion.Location = new System.Drawing.Point(45, 492);
+            this.btn_deconnexion.Location = new System.Drawing.Point(45, 547);
             this.btn_deconnexion.Margin = new System.Windows.Forms.Padding(3, 3, 3, 20);
             this.btn_deconnexion.Name = "btn_deconnexion";
             this.btn_deconnexion.Size = new System.Drawing.Size(243, 32);
@@ -180,11 +181,24 @@
             this.label_statutUser.TabIndex = 14;
             this.label_statutUser.Text = "Élève";
             // 
+            // btn_responsables
+            // 
+            this.btn_responsables.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btn_responsables.Location = new System.Drawing.Point(45, 492);
+            this.btn_responsables.Margin = new System.Windows.Forms.Padding(3, 3, 3, 20);
+            this.btn_responsables.Name = "btn_responsables";
+            this.btn_responsables.Size = new System.Drawing.Size(243, 32);
+            this.btn_responsables.TabIndex = 15;
+            this.btn_responsables.Text = "Les responsables";
+            this.btn_responsables.UseVisualStyleBackColor = true;
+            this.btn_responsables.Click += new System.EventHandler(this.btn_responsables_Click);
+            // 
             // Index
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(331, 553);
+            this.ClientSize = new System.Drawing.Size(331, 630);
+            this.Controls.Add(this.btn_responsables);
             this.Controls.Add(this.label_statutUser);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label_nomUser);
@@ -221,5 +235,6 @@
         private Label label_nomUser;
         private Label label3;
         private Label label_statutUser;
+        private Button btn_responsables;
     }
 }

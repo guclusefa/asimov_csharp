@@ -99,6 +99,14 @@ namespace asimov
             Liste form = new Liste("Les matières", "/matieres", "MAT");
             methods.openForm("/matieres/liste", this, form);
         }
+        
+        // les responsables
+        private void btn_responsables_Click(object sender, EventArgs e)
+        {
+            // ouvrir eleves
+            Liste form = new Liste("Les responsables", "/responsables", "RES");
+            methods.openForm("/responsables/liste", this, form);
+        }
 
         // deconnexion
         private void btn_deconnexion_Click(object sender, EventArgs e)
@@ -122,5 +130,6 @@ namespace asimov
             Connexion connexion = new Connexion();
             connexion.Show();
         }
+
     }
 }

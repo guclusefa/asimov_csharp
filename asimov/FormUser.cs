@@ -21,6 +21,8 @@ namespace asimov
         public static string id;
         public static string user_type;
 
+        public static JObject data;
+
         public FormUser(int modifierForm, string idForm, string typeForm)
         {
             InitializeComponent();
@@ -54,6 +56,15 @@ namespace asimov
                     urlData = "/profs/modifier/" + id;
                     titleForm = "Modifier un professeur";
                 }
+
+                // les params
+                if (typeForm == "RES")
+                {
+                    typeData = "unResponsable";
+                    urlData = "/responsables/modifier/" + id;
+                    titleForm = "Modifier un responsable";
+                }
+
                 actionForm = "Modifier";
 
                 // mettre les values
@@ -78,6 +89,11 @@ namespace asimov
                 {
                     titleForm = "Ajouter un professeur";
                 }
+
+                if (typeForm == "RES")
+                {
+                    titleForm = "Ajouter un responsable";
+                }
                 actionForm = "Ajouter";
             }
             
@@ -85,6 +101,26 @@ namespace asimov
             this.Text = titleForm;
             label1.Text = titleForm;
             btn_valider.Text = actionForm;
+
+
+
+
+
+            // e5
+            data = methods.getRequest("/responsables/liste/");
+
+            // remplir les datalist
+            methods.initResponsable(cb_resp1, data["lesResponsables"]);
+            methods.initResponsable(cb_resp2, data["lesResponsables"]);
+
+            // cacher si responsable
+            if (user_type == "RES")
+            {
+                cb_resp1.Visible = false;
+                cb_resp2.Visible = false;
+                label8.Visible = false;
+                label9.Visible = false;
+            }
         }
 
         private void btn_valider_Click(object sender, EventArgs e)
@@ -107,9 +143,18 @@ namespace asimov
                 if (user_type == "ELE")
                 {
                     url = "/eleves/ajouter";
+
+                    // si eleve on rajoute les params des resp
+                    lesParams = lesParams.Concat(new string[] { "resp1", (cb_resp1.SelectedItem as dynamic).Value.ToString() }).ToArray();
+                    lesParams = lesParams.Concat(new string[] { "resp2", (cb_resp2.SelectedItem as dynamic).Value.ToString() }).ToArray();
                 } else
                 {
                     url = "/profs/ajouter";
+                }
+
+                if (user_type == "RES")
+                {
+                    url = "/responsables/ajouter";
                 }
             } else
             {
@@ -121,6 +166,12 @@ namespace asimov
                 {
                     url = "/profs/modifier/" + id;
                 }
+
+                if (user_type == "RES")
+                {
+                    url = "/responsables/modifier/" + id;
+                }
+                
                 // add to lesParams
                 lesParams = lesParams.Concat(new string[] { "id", id }).ToArray();
             }

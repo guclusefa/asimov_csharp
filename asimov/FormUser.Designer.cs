@@ -42,6 +42,10 @@
             this.btn_valider = new System.Windows.Forms.Button();
             this.dtp_date = new System.Windows.Forms.DateTimePicker();
             this.cb_sexe = new System.Windows.Forms.ComboBox();
+            this.cb_resp1 = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cb_resp2 = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -157,7 +161,7 @@
             // btn_valider
             // 
             this.btn_valider.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btn_valider.Location = new System.Drawing.Point(23, 401);
+            this.btn_valider.Location = new System.Drawing.Point(23, 596);
             this.btn_valider.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_valider.Name = "btn_valider";
             this.btn_valider.Size = new System.Drawing.Size(729, 39);
@@ -183,18 +187,70 @@
             this.cb_sexe.FormattingEnabled = true;
             this.cb_sexe.Items.AddRange(new object[] {
             ""});
-            this.cb_sexe.Location = new System.Drawing.Point(23, 216);
+            this.cb_sexe.Location = new System.Drawing.Point(23, 219);
             this.cb_sexe.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cb_sexe.Name = "cb_sexe";
             this.cb_sexe.Size = new System.Drawing.Size(337, 36);
             this.cb_sexe.Sorted = true;
             this.cb_sexe.TabIndex = 3;
             // 
+            // cb_resp1
+            // 
+            this.cb_resp1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_resp1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cb_resp1.FormattingEnabled = true;
+            this.cb_resp1.Items.AddRange(new object[] {
+            ""});
+            this.cb_resp1.Location = new System.Drawing.Point(23, 415);
+            this.cb_resp1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cb_resp1.Name = "cb_resp1";
+            this.cb_resp1.Size = new System.Drawing.Size(729, 36);
+            this.cb_resp1.Sorted = true;
+            this.cb_resp1.TabIndex = 17;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label8.Location = new System.Drawing.Point(17, 380);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(137, 28);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Responsable 1";
+            // 
+            // cb_resp2
+            // 
+            this.cb_resp2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_resp2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.cb_resp2.FormattingEnabled = true;
+            this.cb_resp2.Items.AddRange(new object[] {
+            ""});
+            this.cb_resp2.Location = new System.Drawing.Point(23, 509);
+            this.cb_resp2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.cb_resp2.Name = "cb_resp2";
+            this.cb_resp2.Size = new System.Drawing.Size(729, 36);
+            this.cb_resp2.Sorted = true;
+            this.cb_resp2.TabIndex = 19;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label9.Location = new System.Drawing.Point(17, 474);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(147, 28);
+            this.label9.TabIndex = 20;
+            this.label9.Text = "Resaponsable 2";
+            // 
             // FormUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 503);
+            this.ClientSize = new System.Drawing.Size(797, 706);
+            this.Controls.Add(this.cb_resp2);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.cb_resp1);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.cb_sexe);
             this.Controls.Add(this.dtp_date);
             this.Controls.Add(this.btn_valider);
@@ -236,5 +292,9 @@
         private Button btn_valider;
         private DateTimePicker dtp_date;
         private ComboBox cb_sexe;
+        private ComboBox cb_resp1;
+        private Label label8;
+        private ComboBox cb_resp2;
+        private Label label9;
     }
 }

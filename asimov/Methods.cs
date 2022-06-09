@@ -12,7 +12,8 @@ namespace asimov
     internal class Methods
     {
         // host & cookie
-        public static string host = "http://asimov-api.alwaysdata.net";
+        // public static string host = "http://asimov-api.alwaysdata.net";
+        public static string host = "http://localhost:8080";
         public static CookieContainer cookieContainer = new CookieContainer();
 
         // post request
@@ -207,7 +208,7 @@ namespace asimov
             }
 
             // si eleve
-            if (type == "ELE" || type == "PRO")
+            if (type == "ELE" || type == "PRO" || type == "RES")
             {
                 // ajout des colonnes
                 dgv.Columns.Add("id", "#");
@@ -221,6 +222,10 @@ namespace asimov
                 if (type == "PRO")
                 {
                     typeuser = "lesProfs";
+                }
+                if (type == "RES")
+                {
+                    typeuser = "lesResponsables";
                 }
 
                 // affichage des data dans le tableau
@@ -268,7 +273,7 @@ namespace asimov
             }
 
             // hide first column
-            dgv.Columns["id"].Visible = false;
+            // dgv.Columns["id"].Visible = false;
             // new text box -> utilisé pour display aucun resultat si c le cas
             TextBox tb = new TextBox();
             searchDataGrid(dgv, tb);
@@ -327,7 +332,7 @@ namespace asimov
             }
 
             // si eleves
-            if (type == "ELE" || type == "PRO")
+            if (type == "ELE" || type == "PRO" || type == "RES")
             {
                 // si eleve ou prof
                 string typeuser = "unEleve";
@@ -335,6 +340,11 @@ namespace asimov
                 {
                     typeuser = "unProf";
                 }
+                if (type == "RES")
+                {
+                    typeuser = "unResponsable";
+                }
+                
                 // les détails
                 detail = "id : " + data[typeuser]["user_id"].ToString();
                 detail += "\nNOM : " + data[typeuser]["user_nom"].ToString();
@@ -450,6 +460,13 @@ namespace asimov
                 form.ShowDialog();
             }
 
+            // si responsable
+            if (type == "RES")
+            {
+                FormUser form = new FormUser(0, "0", "RES");
+                form.ShowDialog();
+            }
+
             // si profs
             if (type == "PRO")
             {
@@ -544,6 +561,13 @@ namespace asimov
             if (type == "EVA")
             {
                 FormEval form = new FormEval(1, row.Cells["id"].Value.ToString());
+                form.ShowDialog();
+            }
+
+            // si évaluations
+            if (type == "RES")
+            {
+                FormUser form = new FormUser(1, row.Cells["id"].Value.ToString(), "RES");
                 form.ShowDialog();
             }
 
@@ -698,6 +722,26 @@ namespace asimov
 
             cb.Items.Clear();
             cb.Items.Add(new { Text = "Choisir un professeur principal", Value = "" });
+
+            // for each data
+            foreach (var item in data)
+            {
+                cb.Items.Add(new { Text = item["user_nom"].ToString() + " " + item["user_prenom"].ToString(), Value = item["user_id"].ToString() });
+            }
+
+            // selection 1er
+            cb.SelectedIndex = 0;
+        }
+
+        // init combobox responsables
+        public void initResponsable(ComboBox cb, JToken data)
+        {
+            // init classe
+            cb.DisplayMember = "Text";
+            cb.ValueMember = "Value";
+
+            cb.Items.Clear();
+            cb.Items.Add(new { Text = "Choisir un responsable", Value = "" });
 
             // for each data
             foreach (var item in data)
